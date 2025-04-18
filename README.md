@@ -1,10 +1,11 @@
 ## Database : Mongodb
-- [mongodb community server](https://www.mongodb.com/try/download/community)
-- [mongodb Shell](https://www.mongodb.com/try/download/shell)
+- [Mongodb community server](https://www.mongodb.com/try/download/community)
+- [Mongodb Shell](https://www.mongodb.com/try/download/shell)
 
 ## Front End
 - [Vue.js](https://vuejs.org)
 ## Back end
-- [node.js](https://nodejs.org/en)
+- [Node.js](https://nodejs.org/en)
 ## Frame work other
 - [Hero UI](https://www.heroui.com)
+- [Tailwind](https://tailwindcss.com))
