@@ -10,3 +10,6 @@
 ## Frame work other
 - [Hero UI](https://www.heroui.com)
 - [Tailwind](https://tailwindcss.com))
+
+## HTTP Methods
+![image](https://github.com/user-attachments/assets/47437aff-2189-482c-aaca-69d216b7cbab)
