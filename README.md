@@ -1,6 +1,7 @@
 ## Database : Mongodb
 - [Mongodb community server](https://www.mongodb.com/try/download/community)
 - [Mongodb Shell](https://www.mongodb.com/try/download/shell)
+- [collections](https://www.mongodb.com/docs/manual/reference/method/db.collection.insert/)
 - URL : mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.0
 ## Front End
 - [Vue.js](https://vuejs.org)
