@@ -1,15 +1,19 @@
 'use client'
 import { useState } from 'react'
 import { FaUser, FaLock } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
+  const router = useRouter()
+  
   const handleLogin = (e) => {
     e.preventDefault()
     // TODO: เชื่อม API login ตรงนี้
     alert(`Logging in as ${username}`)
+
+    router.push('/back_office/order')
   }
 
   return (
@@ -21,7 +25,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Form */}
-        <h2 className="text-center text-lg font-semibold mb-4">Login</h2>
+        <h2 className="text-center text-xl font-semibold mb-4">Login</h2>
         <form onSubmit={handleLogin} className="space-y-4">
           <label className="input input-bordered flex items-center gap-2">
             <FaUser className="text-gray-400" />
@@ -45,9 +49,9 @@ export default function LoginPage() {
               required
             />
           </label>
-          <button type="submit" className="btn btn-primary w-full">
-            Login
-          </button>
+            <button type="submit" className="btn btn-lg btn-primary w-full">
+              Login
+            </button>
         </form>
       </div>
     </div>
