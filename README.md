@@ -47,6 +47,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## Frame work other
 - [Daisy UI](https://daisyui.com/docs/install/)
 - [Tailwind](https://tailwindcss.com))
-
+## Extension
+- ES7+ React/Redux/React-Native snippets
 ## HTTP Methods
 ![image](https://github.com/user-attachments/assets/47437aff-2189-482c-aaca-69d216b7cbab)
