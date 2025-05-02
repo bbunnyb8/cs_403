@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Database : MySQL
+- [appserv](https://www.appserv.org/en/)
+- username : root
+- password : 1111111111 = หนึ่ง 10 ตัว
+- database_name : "be_lune"
+## Front End
+- [Vue.js](https://vuejs.org)
+## Back end
+- [Node.js](https://nodejs.org/en)
+## Frame work other
+- [Daisy UI](https://daisyui.com/docs/install/)
+- [Tailwind](https://tailwindcss.com))
+
+## HTTP Methods
+![image](https://github.com/user-attachments/assets/47437aff-2189-482c-aaca-69d216b7cbab)
