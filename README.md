@@ -46,6 +46,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [Node.js](https://nodejs.org/en)
 ## Frame work other
 - [Daisy UI](https://daisyui.com/docs/install/)
+- https://react-icons.github.io/react-icons/icons/ai/
 - [Tailwind](https://tailwindcss.com))
 ## Extension
 - ES7+ React/Redux/React-Native snippets
