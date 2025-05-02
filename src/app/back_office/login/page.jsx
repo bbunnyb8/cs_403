@@ -49,7 +49,7 @@ export default function LoginPage() {
               required
             />
           </label>
-            <button type="submit" className="btn btn-lg btn-primary w-full">
+            <button type="submit" className="btn btn-lg btn-secondary w-full">
               Login
             </button>
         </form>
