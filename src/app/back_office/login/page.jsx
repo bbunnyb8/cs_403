@@ -27,7 +27,7 @@ export default function LoginPage() {
         {/* Login Form */}
         <h2 className="text-center text-xl font-semibold mb-4">Login</h2>
         <form onSubmit={handleLogin} className="space-y-4">
-          <label className="input input-bordered flex items-center gap-2">
+          <label className="input input-bordered flex items-center gap-2 mt-5">
             <FaUser className="text-gray-400" />
             <input
               type="text"
@@ -38,7 +38,7 @@ export default function LoginPage() {
               required
             />
           </label>
-          <label className="input input-bordered flex items-center gap-2">
+          <label className="input input-bordered flex items-center gap-2 mt-5">
             <FaLock className="text-gray-400" />
             <input
               type="password"
@@ -49,9 +49,11 @@ export default function LoginPage() {
               required
             />
           </label>
-            <button type="submit" className="btn btn-lg btn-secondary w-full">
+          <div class="flex flex-col items-center mt-6">
+            <button type="submit" className="btn btn-lg  btn-outline btn-error w-40">
               Login
             </button>
+          </div>
         </form>
       </div>
     </div>
