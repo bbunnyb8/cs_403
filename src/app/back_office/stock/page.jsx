@@ -1,5 +1,5 @@
-
 "use client"
+
 import Sidebar from '@/app/component/sidebar'
 
 export default function Layout({ children }) {
@@ -7,6 +7,7 @@ export default function Layout({ children }) {
     <div className="flex">
       <Sidebar />
       <h1>stock</h1>
+
       {/* Open the modal using document.getElementById('ID').showModal() method */}
       <button className="btn" onClick={()=>document.getElementById('my_modal_4').showModal()}>open modal</button>
         <dialog id="my_modal_4" className="modal">
@@ -21,6 +22,10 @@ export default function Layout({ children }) {
             </div>
         </div>
         </dialog>
+    </div>
+  )
+}
+
     </div>
   )
 }
