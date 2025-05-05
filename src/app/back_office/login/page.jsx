@@ -8,12 +8,28 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const router = useRouter()
   
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    // TODO: เชื่อม API login ตรงนี้
-    alert(`Logging in as ${username}`)
-
-    router.push('/back_office/order')
+  
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    })
+  
+    if (!res.ok) {
+      alert('Login ไม่สำเร็จ')
+      return
+    }
+  
+    const data = await res.json()
+  
+    if (data.success) {
+      alert('Login สำเร็จ')
+      router.push('/back_office/order')
+    } else {
+      alert('Login ไม่สำเร็จ')
+    }
   }
 
   return (
