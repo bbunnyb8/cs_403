@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 "use client"
 import Sidebar from '@/app/component/sidebar'
 
@@ -25,4 +24,4 @@ export default function Layout({ children }) {
     </div>
   )
 }
->>>>>>> Stashed changes
+
