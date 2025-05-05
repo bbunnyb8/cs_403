@@ -47,7 +47,7 @@ export default function Sidebar() {
           </Link>
         </li>
       </ul>
-      <div>
+      
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col items-center justify-center">
@@ -56,6 +56,7 @@ export default function Sidebar() {
           Open drawer
         </label>
       </div>
+    </div>
 
       <div className="drawer-side shadow-xl base-100">
         <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -74,5 +75,6 @@ export default function Sidebar() {
         </ul>
       </div>
     </div>
+    
   )
 }

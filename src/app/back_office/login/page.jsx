@@ -49,7 +49,7 @@ export default function LoginPage() {
               required
             />
           </label>
-          <div class="flex flex-col items-center mt-6">
+          <div className="flex flex-col items-center mt-6">
             <button type="submit" className="btn btn-lg  btn-outline btn-error w-40">
               Login
             </button>
