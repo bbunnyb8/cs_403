@@ -1,12 +1,15 @@
-"use client"
+'use client'
 
 import Sidebar from '@/app/component/sidebar'
+import Modal from './modal'
 
 export default function Layout({ children }) {
   return (
-    <div className="">
+    <div className="flex h-full w-full">
       <Sidebar />
-      <h1>stock</h1>
+      <div className='flex items-center p-90'>
+      <Modal />
+      </div>
     </div>
   )
 }
