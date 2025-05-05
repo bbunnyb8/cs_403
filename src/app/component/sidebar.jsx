@@ -20,11 +20,11 @@ export default function Sidebar() {
               <img src="/logo-full.png" alt="Logo" className="w-60" />
           </div>
 
-          <li className='p-2'><a>Order</a></li>
+          <li className='p-2'><Link href="/back_office/order">Order</Link></li>
           <li className='p-4'>MANAGEMENT</li>
-          <li className='p-2'><a>Stock</a></li>
-          <li className='p-2'><a>Customer</a></li>
-          <li className='p-2'><a>Employee</a></li>
+          <li className='p-2'><Link href="/back_office/stock">Stock</Link></li>
+          <li className='p-2'><Link href="/back_office/customer_manage">Customer</Link></li>
+          <li className='p-2'><Link href="/back_office/employee_manage">Employee</Link></li>
           <li className='p-2'><Link href="/back_office/login">Logout</Link></li>
         </ul>
       </div>
