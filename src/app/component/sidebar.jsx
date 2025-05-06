@@ -9,7 +9,7 @@ import { IoMdLogOut } from "react-icons/io";
 export default function Sidebar() {
   
   return (
-    <div className='p-4 fixed h-full z-50'>
+    <div className='p-4 static fixed h-full z-50'>
       <ul className="menu bg-base-100 rounded-box w-56 shadow-md ">
         <div className="p-6 flex items-center justify-center">
           <img src="/logo-full.png" alt="Logo" className="w-60" />
