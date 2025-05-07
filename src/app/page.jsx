@@ -1,5 +1,17 @@
-import { redirect } from 'next/navigation'
+'use client'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  redirect('/back_office/stock')  // ✅ ต้องใช้ path นี้ตรงกับชื่อโฟลเดอร์
-};
+  const router = useRouter();
+
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_ENTRY === 'front_office') {
+      router.replace('/front_office/login');
+    } else if (process.env.NEXT_PUBLIC_ENTRY === 'back_office') {
+      router.replace('/back_office/order');
+    }
+  }, [router]);
+
+  return null;
+}
