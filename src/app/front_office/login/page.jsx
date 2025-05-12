@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { FaUser, FaLock } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
@@ -41,6 +42,14 @@ export default function LoginPage() {
         </div>
 
         {/* Login Form */}
+        <div className="flex justify-center join join-vertical lg:join-horizontal">
+          <Link href={"/front_office/order/page"}>
+          <button className='btn btn-secondary join-item'>Login</button>
+          </Link>
+          <Link href={"/front_office/order/page"}>
+          <button className='btn btn-secondary join-item'>Register</button>
+          </Link>
+        </div>
         <h2 className="text-center text-xl font-semibold mb-4">Login</h2>
         <form onSubmit={handleLogin} className="space-y-4">
           <label className="input input-bordered flex items-center gap-2 mt-5">
