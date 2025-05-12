@@ -39,7 +39,7 @@ export default function LoginPage() {
   return (
     <div className='flex flex-col p-4'>
       <Navbar />    
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center h-full">
       <div className="w-full max-w-sm p-8 rounded-lg">
         {/* Register Form */}
             <Change_login />
