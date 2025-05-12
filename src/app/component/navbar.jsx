@@ -3,10 +3,11 @@ import { BiHome } from "react-icons/bi";
 import { IoMdSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { MdBakeryDining } from "react-icons/md";
+import Link from 'next/link'
 
 function nevbar() {
   return (
-    <div className="navbar bg-base-100 shadow-sm rounded-xl">
+    <div className="navbar bg-base-100 shadow-sm rounded-xl ">
         <div className=' navbar p-2'>
             <div className="navbar-start">
                 <img src= "/logo.png" alt="Logo" className="w-10" />
