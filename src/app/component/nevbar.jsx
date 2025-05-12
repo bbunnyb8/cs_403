@@ -8,10 +8,7 @@ function nevbar() {
     <div className="navbar bg-base-100 shadow-sm">
     <div className="navbar-start">
         <img src= "/logo-full.png" alt="Logo" className="w-20" />
-        <button class="btn btn-ghost">
-            <BiHome />
-            Home
-        </button>
+        <button className="btn btn-ghost"><BiHome />Home</button>
     </div>
 
     <div className="navbar-end">
