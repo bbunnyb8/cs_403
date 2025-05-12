@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { FaUser, FaLock } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Nevbar from '@/app/component/nevbar'
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
@@ -34,6 +35,8 @@ export default function LoginPage() {
   }
 
   return (
+    <div className='flex flex-col p-4'>
+      <Nevbar />
     <div className="flex justify-center items-center min-h-screen bg-white ">
       <div className="w-full max-w-sm p-8 rounded-lg bg-white">
         {/* Logo */}
@@ -42,12 +45,12 @@ export default function LoginPage() {
         </div>
 
         {/* change button */}
-        <div className="flex justify-center join lg:join-horizontal pb-2">
+        <div className="flex justify-center join join-vertical lg:join-horizontal">
           <Link href={"/front_office/login"}>
-          <button className='btn btn-secondary join-item'>Login</button>
+          <button className="btn text-white join-item" style={{ backgroundColor: '#B12937' }}>Login</button>
           </Link>
           <Link href={"/front_office/register"}>
-          <button className='btn btn-secondary join-item'>Register</button>
+          <button className="btn text-white join-item" style={{ backgroundColor: '#ED9A82' }}>Register</button>
           </Link>
         </div>
 
@@ -84,5 +87,6 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
+  </div>
   )
 }
