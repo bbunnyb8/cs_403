@@ -42,7 +42,7 @@ export default function LoginPage() {
         </div>
 
         {/* change button */}
-        <div className="flex justify-center join join-vertical lg:join-horizontal pb-2">
+        <div className="flex justify-center join lg:join-horizontal pb-2">
           <Link href={"/front_office/login"}>
           <button className='btn btn-secondary join-item'>Login</button>
           </Link>
