@@ -41,15 +41,17 @@ export default function LoginPage() {
           <img src="/logo-full.png" alt="Logo" className="w-40 h-18 mb-2" />
         </div>
 
-        {/* Login Form */}
-        <div className="flex justify-center join join-vertical lg:join-horizontal">
-          <Link href={"/front_office/order/page"}>
+        {/* change button */}
+        <div className="flex justify-center join join-vertical lg:join-horizontal pb-2">
+          <Link href={"/front_office/login"}>
           <button className='btn btn-secondary join-item'>Login</button>
           </Link>
-          <Link href={"/front_office/order/page"}>
+          <Link href={"/front_office/register"}>
           <button className='btn btn-secondary join-item'>Register</button>
           </Link>
         </div>
+
+        {/* Login Form */}  
         <h2 className="text-center text-xl font-semibold mb-4">Login</h2>
         <form onSubmit={handleLogin} className="space-y-4">
           <label className="input input-bordered flex items-center gap-2 mt-5">
