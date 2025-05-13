@@ -60,15 +60,15 @@ export default function Modal() {
         onClick={() => document.getElementById("my_modal_4").showModal()}
       >
         <IoIosAddCircleOutline className="h-5 w-5" />
-        Add Product
+        Add Employee
       </button>
 
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box max-w max-h flex flex-col">
           <form onSubmit={handleSubmit}>
-            <h2 className="font-bold text-lg mb-2">Add Product</h2>
+            <h2 className="font-bold text-lg mb-2">Add Employee</h2>
 
-            <p className="py-2 pl-2">Product ID :</p>
+            <p className="py-2 pl-2">Employee ID :</p>
 
             {/* Upload image */}
             <div className="flex items-center justify-center p-6">

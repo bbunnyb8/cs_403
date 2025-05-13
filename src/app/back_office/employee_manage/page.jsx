@@ -85,7 +85,7 @@ export default function StockLayout() {
       <div className="relative flex flex-col w-full p-6 ml-60">
         {/* Header */}
         <div className="flex flex-row gap-2 items-center pb-6">
-          <h1 className="text-3xl font-bold">Stock</h1>
+          <h1 className="text-3xl font-bold">Employee</h1>
           <label className='text-base-content/50 mt-2'>({filteredData.length} items)</label>
         </div>
 
@@ -113,21 +113,25 @@ export default function StockLayout() {
             <thead>
               <tr className="bg-gray-100 text-left text-gray-600 uppercase">
                 <th className="p-2 w-[50px]">#</th>
-                <th className="p-2 w-[120px]">ID</th>
+                <th className="p-2 w-[50px]">ID</th>
                 <th className="p-2 w-[200px]">Name</th>
-                <th className="p-2 w-[100px]">Price</th>
-                <th className="p-2 w-[100px]">Amount</th>
+                <th className="p-2 w-[150px] text-center">E-mail</th>
+                <th className="p-2 w-[100px] text-center">TEL</th>
+                <th className="p-2 w-[50px] text-center">Salary</th>
+                <th className="p-2 w-[100px] text-center">Status</th>
                 <th className="p-2 w-[150px] text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {currentItems.map((item, idx) => (
                 <tr key={idx} className="border-t hover:bg-gray-50 h-2">
-                  <td className="p-2">{startIndex + idx + 1}</td>
-                  <td className="p-2">{item.product_id}</td>
-                  <td className="p-2">{item.name}</td>
-                  <td className="p-2">{item.price}</td>
-                  <td className="p-2">{item.amount}</td>
+                  <td className="p-2 ">{startIndex + idx + 1}</td>
+                  <td className="p-2 ">{item.product_id}</td>
+                  <td className="p-2 ">{item.name}</td>
+                  <td className="p-2 text-center">{item.price}</td>
+                  <td className="p-2 text-center">{item.amount}</td>
+                  <td className="p-2 text-center">{item.amount}</td>
+                  <td className="p-2 text-center">{item.amount}</td>
                   <td className="p-2 flex justify-center gap-2">
                     <Edit /> <Delete />
                   </td>
@@ -135,6 +139,8 @@ export default function StockLayout() {
               ))}
               {Array.from({ length: itemsPerPage - currentItems.length }).map((_, idx) => (
                 <tr key={`empty-${idx}`} className="border-t h-2">
+                  <td className="p-2">-</td>
+                  <td className="p-2">-</td>
                   <td className="p-2">-</td>
                   <td className="p-2">-</td>
                   <td className="p-2">-</td>
