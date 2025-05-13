@@ -111,35 +111,35 @@ export default function StockLayout() {
           <table className="table table-zebra table-fixed min-w-full bg-white text-sm">
             <thead>
               <tr className="bg-gray-100 text-left text-gray-600 uppercase">
-                <th className="p-4 w-[50px]">#</th>
-                <th className="p-4 w-[120px]">ID</th>
-                <th className="p-4 w-[200px]">Name</th>
-                <th className="p-4 w-[100px]">Price</th>
-                <th className="p-4 w-[100px]">Amount</th>
-                <th className="p-4 w-[150px] text-center">Action</th>
+                <th className="p-2 w-[50px]">#</th>
+                <th className="p-2 w-[120px]">ID</th>
+                <th className="p-2 w-[200px]">Name</th>
+                <th className="p-2 w-[100px]">Price</th>
+                <th className="p-2 w-[100px]">Amount</th>
+                <th className="p-2 w-[150px] text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {currentItems.map((item, idx) => (
-                <tr key={idx} className="border-t hover:bg-gray-50 h-12">
-                  <td className="p-4">{startIndex + idx + 1}</td>
-                  <td className="p-4">{item.product_id}</td>
-                  <td className="p-4">{item.name}</td>
-                  <td className="p-4">{item.price}</td>
-                  <td className="p-4">{item.amount}</td>
-                  <td className="p-4 flex justify-center gap-2">
+                <tr key={idx} className="border-t hover:bg-gray-50 h-2">
+                  <td className="p-2">{startIndex + idx + 1}</td>
+                  <td className="p-2">{item.product_id}</td>
+                  <td className="p-2">{item.name}</td>
+                  <td className="p-2">{item.price}</td>
+                  <td className="p-2">{item.amount}</td>
+                  <td className="p-2 flex justify-center gap-2">
                     <Edit /> <Delete />
                   </td>
                 </tr>
               ))}
               {Array.from({ length: itemsPerPage - currentItems.length }).map((_, idx) => (
-                <tr key={`empty-${idx}`} className="border-t h-12">
-                  <td className="p-4">-</td>
-                  <td className="p-4">-</td>
-                  <td className="p-4">-</td>
-                  <td className="p-4">-</td>
-                  <td className="p-4">-</td>
-                  <td className="p-4"></td>
+                <tr key={`empty-${idx}`} className="border-t h-2">
+                  <td className="p-2">-</td>
+                  <td className="p-2">-</td>
+                  <td className="p-2">-</td>
+                  <td className="p-2">-</td>
+                  <td className="p-2">-</td>
+                  <td className="p-2"></td>
                 </tr>
               ))}
             </tbody>
