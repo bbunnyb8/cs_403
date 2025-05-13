@@ -1,9 +1,10 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { RiImageAddLine, RiEditBoxLine } from "react-icons/ri";
 
-export default function Edit() {
+
+export default function Modal() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
@@ -22,44 +23,50 @@ export default function Edit() {
     }
   };
 
-  const handleSubmit = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("price", price);
-      formData.append("amount", amount);
-      if (image) formData.append("image", image);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      const res = await fetch("/api/edit-product", {
-        method: "POST",
-        body: formData,
+    const productData = {
+      name: name,
+      price: price,
+      amount: amount,
+    };
+
+    try {
+      const response = await fetch('/api/add-product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(productData),
       });
 
-      if (!res.ok) throw new Error("Failed to update product");
-
-      const data = await res.json();
-      console.log("Success:", data);
-
-      document.getElementById("my_modal_4").close(); // ปิด modal
-    } catch (err) {
-      console.error("Submit error:", err);
-      alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Product added successfully:', data);
+        document.getElementById("my_modal_4").close();
+      } else {
+        console.error('Error:', data.error);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
     }
   };
 
-   return (
-      <div className="relative">
-        <button
-          className="btn btn-square btn-ghost"
-          onClick={() => document.getElementById("my_modal_4").showModal()}
-        >
-          <RiEditBoxLine className="h-5 w-5 text-info-content" />
-        </button>
-  
+  return (
+    <div className="relative">
+      <button
+        className="btn btn-accent"
+        onClick={() => document.getElementById("my_modal_4").showModal()}
+      >
+        <IoIosAddCircleOutline className="h-5 w-5" />
+        Add Employee
+      </button>
+
         <dialog id="my_modal_4" className="modal">
           <div className="modal-box max-w max-h flex flex-col">
             <form method="dialog">
-              <h2 className="font-bold text-lg mb-2">Edit employee</h2>
+              <h2 className="font-bold text-lg mb-2">Add Employee</h2>
               <p className="py-2 pl-2">ID :</p>
   
               <p className="py-2 pl-2"><b>Personal Information</b></p>
