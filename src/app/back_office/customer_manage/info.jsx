@@ -1,10 +1,9 @@
 'use client'
-import React, { useState } from 'react';
-// icon
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { RiImageAddLine } from "react-icons/ri";
+import React, { useState } from 'react'
+import { RiImageAddLine, RiEditBoxLine } from "react-icons/ri";
+import { RiEmojiStickerLine } from "react-icons/ri";
 
-export default function Modal() {
+export default function Edit() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
@@ -23,54 +22,50 @@ export default function Modal() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const productData = {
-      name: name,
-      price: price,
-      amount: amount,
-    };
-
+  const handleSubmit = async () => {
     try {
-      const response = await fetch('/api/add-product', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productData),
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("amount", amount);
+      if (image) formData.append("image", image);
+
+      const res = await fetch("/api/edit-product", {
+        method: "POST",
+        body: formData,
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        console.log('Product added successfully:', data);
-        document.getElementById("my_modal_4").close();
-      } else {
-        console.error('Error:', data.error);
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
+      if (!res.ok) throw new Error("Failed to update product");
+
+      const data = await res.json();
+      console.log("Success:", data);
+
+      document.getElementById("my_modal_4").close(); // ปิด modal
+    } catch (err) {
+      console.error("Submit error:", err);
+      alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
     }
   };
 
   return (
     <div className="relative">
+      {/* ปุ่ม Info */}
       <button
-        className="btn btn-accent"
+        className="btn btn-square btn-ghost"
         onClick={() => document.getElementById("my_modal_4").showModal()}
       >
-        <IoIosAddCircleOutline className="h-5 w-5" />
-        Add Product
+        <RiEmojiStickerLine className="h-5 w-5 text-info-content" />
       </button>
 
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box max-w max-h flex flex-col">
-          <form onSubmit={handleSubmit}>
-            <h2 className="font-bold text-lg mb-2">Add Product</h2>
+          <form method="dialog">
+            <h2 className="font-bold text-lg mb-2">Edit Product</h2>
 
+            {/* Product ID (ถ้าต้องใช้เพิ่มในอนาคต) */}
             <p className="py-2 pl-2">Product ID :</p>
 
-            {/* Upload image */}
+            {/* อัปโหลดรูป */}
             <div className="flex items-center justify-center p-6">
               <label htmlFor="image-upload" className="cursor-pointer">
                 {previewUrl ? (
@@ -92,7 +87,7 @@ export default function Modal() {
               />
             </div>
 
-            {/* Name */}
+            {/* Input: name */}
             <div className="flex p-2">
               <input
                 type="text"
@@ -104,48 +99,42 @@ export default function Modal() {
               />
             </div>
 
-            {/* Price */}
+            {/* Input: price */}
             <div className="flex p-2">
               <input
                 type="number"
                 className="input validator w-2/4"
+                required
                 placeholder="price"
                 min="1"
                 max="1000"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                required
               />
-              <p className="pl-4 text-xs text-gray-500">Must enter a number</p>
+              <p className="pl-4 text-xs validator-hint text-gray-500">Must enter a number</p>
             </div>
 
-            {/* Amount */}
+            {/* Input: amount */}
             <div className="flex p-2">
               <input
                 type="number"
                 className="input validator w-2/4"
+                required
                 placeholder="amount"
                 min="1"
                 max="1000"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                required
               />
-              <p className="pl-4 text-xs text-gray-500">Must enter a number</p>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex flex-row justify-end p-4 gap-2">
-              <button type="submit" className="btn btn-neutral btn-dash">Submit</button>
-              <button
-                type="button"
-                className="btn btn-dash btn-error"
-                onClick={() => document.getElementById("my_modal_4").close()}
-              >
-                Cancel
-              </button>
+              <p className="pl-4 text-xs validator-hint text-gray-500">Must enter a number</p>
             </div>
           </form>
+
+          {/* ปุ่ม Submit & Cancel */}
+          <div className="flex flex-row justify-end p-4 gap-2">
+            <button className="btn btn-neutral btn-dash" onClick={handleSubmit}>Submit</button>
+            <button className="btn btn-dash btn-error" onClick={() => document.getElementById("my_modal_4").close()}>Cancel</button>
+          </div>
         </div>
       </dialog>
     </div>
