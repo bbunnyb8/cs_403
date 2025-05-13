@@ -58,7 +58,7 @@ export default function Info() {
         className="btn btn-square btn-ghost"
         onClick={() => document.getElementById("my_modal_4").showModal()}
       >
-        <RiEmojiStickerLine className="h-5 w-5 text-info-content" />
+        <RiEditBoxLine className="h-5 w-5 text-info-content" />
       </button>
 
       <dialog id="my_modal_4" className="modal">

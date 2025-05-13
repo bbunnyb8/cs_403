@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Sidebar from '@/app/component/sidebar';
-import Modal from './modal';
+import Modal from './add';
 import Edit from "./edit";
 import Delete from "./delete_pd";
 import { IoSearch } from "react-icons/io5";
@@ -114,7 +114,7 @@ export default function StockLayout() {
               <tr className="bg-gray-100 text-left text-gray-600 uppercase">
                 <th className="p-2 w-[50px]">#</th>
                 <th className="p-2 w-[50px]">ID</th>
-                <th className="p-2 w-[200px]">Name</th>
+                <th className="p-2 w-[150px]">Name</th>
                 <th className="p-2 w-[150px] text-center">E-mail</th>
                 <th className="p-2 w-[100px] text-center">TEL</th>
                 <th className="p-2 w-[50px] text-center">Salary</th>
@@ -128,9 +128,9 @@ export default function StockLayout() {
                   <td className="p-2 ">{startIndex + idx + 1}</td>
                   <td className="p-2 ">{item.product_id}</td>
                   <td className="p-2 ">{item.name}</td>
-                  <td className="p-2 text-center">{item.price}</td>
-                  <td className="p-2 text-center">{item.amount}</td>
-                  <td className="p-2 text-center">{item.amount}</td>
+                  <td className="p-2 ">{item.price}</td>
+                  <td className="p-2 ">{item.amount}</td>
+                  <td className="p-2 ">{item.amount}</td>
                   <td className="p-2 text-center">{item.amount}</td>
                   <td className="p-2 flex justify-center gap-2">
                     <Edit /> <Delete />
