@@ -1,10 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Sidebar from '@/app/component/sidebar';
-import Modal from './modal';
-import Edit from "./edit";
 import Delete from "./delete_pd";
 import { IoSearch } from "react-icons/io5";
+import Info from './info';
 
 export default function StockLayout() {
   const [stockData, setStockData] = useState([]);
@@ -85,8 +84,8 @@ export default function StockLayout() {
       <div className="relative flex flex-col w-full p-6 ml-60">
         {/* Header */}
         <div className="flex flex-row gap-2 items-center pb-6">
-          <h1 className="text-3xl font-bold">Stock</h1>
-          <label className='text-base-content/50 mt-2'>({filteredData.length} items)</label>
+          <h1 className="text-3xl font-bold">Customer</h1>
+          <label className='text-base-content/50 mt-2'>({filteredData.length} user)</label>
         </div>
 
         {/* Search & Modal */}
@@ -102,9 +101,6 @@ export default function StockLayout() {
             {/* ถ้าจะเพิ่มการค้นหาตาม Type ก็แก้ dropdown ตรงนี้ */}
           </label>
 
-          <div className="flex-none">
-            <Modal />
-          </div>
         </div>
 
         {/* Table */}
@@ -113,13 +109,16 @@ export default function StockLayout() {
             <thead>
               <tr className="bg-gray-100 text-left text-gray-600 uppercase">
                 <th className="p-2 w-[50px]">#</th>
-                <th className="p-2 w-[120px]">ID</th>
+                <th className="p-2 w-[50px]">ID</th>
                 <th className="p-2 w-[200px]">Name</th>
-                <th className="p-2 w-[100px]">Price</th>
-                <th className="p-2 w-[100px]">Amount</th>
-                <th className="p-2 w-[150px] text-center">Action</th>
+                <th className="p-2 w-[100px]">E-Mail</th>
+                <th className="p-2 w-[100px]">Tel</th>
+                <th className="p-2 w-[50px] text-center">Action</th>
               </tr>
             </thead>
+
+            {/* TODO: เปลี่ยนชื่อให้ตรงด้วยนะ */}
+
             <tbody>
               {currentItems.map((item, idx) => (
                 <tr key={idx} className="border-t hover:bg-gray-50 h-2">
@@ -129,7 +128,7 @@ export default function StockLayout() {
                   <td className="p-2">{item.price}</td>
                   <td className="p-2">{item.amount}</td>
                   <td className="p-2 flex justify-center gap-2">
-                    <Edit /> <Delete />
+                    <Info /> <Delete />
                   </td>
                 </tr>
               ))}
