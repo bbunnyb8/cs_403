@@ -10,18 +10,6 @@ export default function Edit() {
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
@@ -53,7 +41,7 @@ export default function Edit() {
           className="btn btn-square btn-ghost"
           onClick={() => document.getElementById("my_modal_4").showModal()}
         >
-          <RiEditBoxLine className="h-5 w-5 text-info-content" />
+          <RiEditBoxLine className="h-5 w-5 text-warning" />
         </button>
   
         <dialog id="my_modal_4" className="modal">

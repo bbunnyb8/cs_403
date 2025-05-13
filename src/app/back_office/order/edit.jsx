@@ -11,18 +11,6 @@ export default function Edit() {
   const [tel, setTel] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
@@ -79,6 +67,7 @@ export default function Edit() {
                     value={product_name}
                     onChange={(e) => setProduct_name(e.target.value)}
                     required
+                    readOnly
                   />
                 </div>
                 <div className="p-1 w-4/10">
@@ -89,6 +78,7 @@ export default function Edit() {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     required
+                    readOnly
                   />
                 </div>
               </div>
@@ -101,6 +91,7 @@ export default function Edit() {
                     value={total_price}
                     onChange={(e) => setTotal_Price(e.target.value)}
                     required
+                    readOnly
                   />
                 </div>
                 {/* ฝาก setvalue ให้ status ด้วยนะ */}
@@ -128,6 +119,7 @@ export default function Edit() {
                     value={customer_name}
                     onChange={(e) => setCustomer_name(e.target.value)}
                     required
+                    readOnly
                   />
                 </div>
                 <div className="flex flex-col p-1 w-full">
@@ -138,6 +130,7 @@ export default function Edit() {
                     value={tel}
                     onChange={(e) => setTel(e.target.value)}
                     required
+                    readOnly
                   />
                 </div>
                 <div className="flex flex-col p-1 w-full">
@@ -148,6 +141,7 @@ export default function Edit() {
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     required
+                    readOnly
                   />
                 </div>
             </fieldset>

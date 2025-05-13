@@ -8,23 +8,9 @@ export default function Info() {
   const [birthday, setBirthday] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setAdress] = useState("");
+  const [address, setAddress] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [previewUrl, setPreviewUrl] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleSubmit = async () => {
     try {
@@ -58,7 +44,7 @@ export default function Info() {
         className="btn btn-square btn-ghost"
         onClick={() => document.getElementById("my_modal_4").showModal()}
       >
-        <RiEditBoxLine className="h-5 w-5 text-info-content" />
+        <RiEmojiStickerLine className="h-5 w-5 text-info-content" />
       </button>
 
       <dialog id="my_modal_4" className="modal">
@@ -132,7 +118,7 @@ export default function Info() {
                 type="text" 
                 className="textarea textarea-xl p-3" 
                 value={address} 
-                onChange={(e) => setAdress(e.target.value)}                
+                onChange={(e) => setAddress(e.target.value)}                
                 readOnly/>
               </div>
             </fieldset>
