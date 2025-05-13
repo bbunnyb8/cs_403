@@ -1,51 +1,55 @@
 'use client'
 import React, { useState } from 'react'
-import { RiImageAddLine, RiEditBoxLine } from "react-icons/ri";
 import { RiEmojiStickerLine } from "react-icons/ri";
 
 export default function Info() {
-  // const [name, setName] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [amount, setAmount] = useState("");
-  // const [image, setImage] = useState(null);
-  // const [previewUrl, setPreviewUrl] = useState(null);
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAdress] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setImage(file);
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPreviewUrl(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+  const [previewUrl, setPreviewUrl] = useState(null);
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("name", name);
-  //     formData.append("price", price);
-  //     formData.append("amount", amount);
-  //     if (image) formData.append("image", image);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-  //     const res = await fetch("/api/edit-product", {
-  //       method: "POST",
-  //       body: formData,
-  //     });
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("amount", amount);
+      if (image) formData.append("image", image);
 
-  //     if (!res.ok) throw new Error("Failed to update product");
+      const res = await fetch("/api/edit-product", {
+        method: "POST",
+        body: formData,
+      });
 
-  //     const data = await res.json();
-  //     console.log("Success:", data);
+      if (!res.ok) throw new Error("Failed to update product");
 
-  //     document.getElementById("my_modal_4").close(); // ปิด modal
-  //   } catch (err) {
-  //     console.error("Submit error:", err);
-  //     alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
-  //   }
-  // };
+      const data = await res.json();
+      console.log("Success:", data);
+
+      document.getElementById("my_modal_4").close(); // ปิด modal
+    } catch (err) {
+      console.error("Submit error:", err);
+      alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
+    }
+  };
 
   return (
     <div className="relative">
@@ -61,80 +65,113 @@ export default function Info() {
         <div className="modal-box max-w max-h flex flex-col">
           <form method="dialog">
             <h2 className="font-bold text-lg mb-2">View Customer</h2>
-            <p className="py-2 pl-2">ID :</p>
+            <p className="py-2 pl-2">Customer ID :</p>
 
-            <p className="py-2 pl-2"><b>Personal Information</b></p>
-            {/* Input: name and last name */}
-            <div className="flex p-2 space-x-2">
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="name"
-              />
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="last name"
-              />
-            </div>
+            {/* Input: name , lastname */}
+            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap bg-base-200">
+              <legend className="fieldset-legend">Personal Information</legend>
 
-            {/* Input: birthday */}
-            <div className="flex p-2">
-              <input
-                type="text"
-                className="input validator w-1/2"
-                placeholder="birthday"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label className="label pb-1">name</label>
+                <input 
+                type="text" 
+                className="input"
+                value={name} 
+                onChange={(e) => setName(e.target.value)}
+                readOnly/>
+              </div>
 
-            <p className="py-2 pl-2"><b>Contact Information</b></p>
-            {/* Input: phone and email */}
-            <div className="flex p-2 space-x-2">
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="phone"
-              />
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="e-mail"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label className="label pb-1">last name</label>
+                <input 
+                type="text" 
+                className="input" 
+                value={lastname} 
+                onChange={(e) => setLastname(e.target.value)}
+                readOnly/>
+              </div>
 
-            {/* Input: address */}
-            <div className="flex p-2">
-              <input
-                type="text"
-                className="input validator w-full"
-                placeholder="address"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label className="label pb-1">birthday</label>
+                <input 
+                type="text" 
+                className="input" 
+                value={birthday} 
+                onChange={(e) => setBirthday(e.target.value)}
+                readOnly/>
+              </div>
+            </fieldset>
 
-          <p className="py-2 pl-2"><b>Login Information</b></p>
-            {/* Input: username and password */}
-            <div className="flex p-2 space-x-2">
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="username"
-              />
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="password"
-              />
-            </div>
+            {/* Input: phone , email , address */}
+            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap">
+              <legend className="fieldset-legend">Contact Information</legend>
+
+              <div className="flex flex-col">
+                <label className="label pb-1">phone</label>
+                <input 
+                type="text" 
+                className="input" 
+                value={phone} 
+                onChange={(e) => setPhone(e.target.value)}                
+                readOnly/>
+              </div>
+
+              <div className="flex flex-col">
+                <label className="label pb-1">e-mail</label>
+                <input 
+                type="text" 
+                className="input" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}                
+                readOnly />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="label pb-1">address</label>
+                <textarea 
+                type="text" 
+                className="textarea textarea-xl p-3" 
+                value={address} 
+                onChange={(e) => setAdress(e.target.value)}                
+                readOnly/>
+              </div>
+            </fieldset>
+
+            {/* Input: username password */}
+            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap bg-base-200">
+              <legend className="fieldset-legend">Personal Information</legend>
+
+              <div className="flex flex-col">
+                <label className="label pb-1">username</label>
+                <input 
+                type="text" 
+                className="input" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)}                
+                readOnly/>
+              </div>
+
+              <div className="flex flex-col">
+                <label className="label pb-1">password</label>
+                <input 
+                type="text" 
+                className="input" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)}                
+                readOnly/>
+              </div>
+            </fieldset>
+
           </form>
 
           {/* ปุ่ม OK */}
-          <div className="flex flex-row justify-center p-4 gap-2">
+          <div className="flex flex-row justify-end p-4 gap-2">
                           <button
                 type="button"
-                className="btn btn-dash btn-success"
+                className="btn btn-dash btn-error"
                 onClick={() => document.getElementById("my_modal_4").close()}
               >
-                OK
+                Cancel
               </button>
           </div>
         </div>
