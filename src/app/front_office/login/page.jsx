@@ -38,7 +38,7 @@ export default function LoginPage() {
   return (
     <div className='flex flex-col p-4'>
       <Navbar />
-    <div className="flex justify-center items-center h-full p-15 bg-white">
+    <div className="flex justify-center items-center h-full p-15 ">
       <div className="w-full max-w-sm p-8 rounded-lg">
           <Change_login />
         
