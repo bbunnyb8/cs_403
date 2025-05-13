@@ -4,6 +4,7 @@ import Sidebar from '@/app/component/sidebar';
 import Modal from './modal';
 import Edit from "./edit";
 import Delete from "./delete_pd";
+import { IoSearch } from "react-icons/io5";
 
 export default function StockLayout() {
   const [stockData, setStockData] = useState([]);
@@ -90,16 +91,16 @@ export default function StockLayout() {
 
         {/* Search & Modal */}
         <div className="flex flex-row items-center pb-6 justify-between w-full gap-2">
-          <div className="flex gap-2">
+          <label className='input input-bordered w-80'>
+            <IoSearch className='h-5 w-5'/>
             <input
               type="text"
-              placeholder="🔍 Search by name"
+              placeholder="Search by name"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="input input-bordered w-80"
             />
             {/* ถ้าจะเพิ่มการค้นหาตาม Type ก็แก้ dropdown ตรงนี้ */}
-          </div>
+          </label>
 
           <div className="flex-none">
             <Modal />
