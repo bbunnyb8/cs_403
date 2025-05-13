@@ -110,8 +110,8 @@ export default function StockLayout() {
               <tr className="bg-gray-100 text-left text-gray-600 uppercase">
                 <th className="p-2 w-[50px]">#</th>
                 <th className="p-2 w-[50px]">ID</th>
-                <th className="p-2 w-[200px]">Name</th>
-                <th className="p-2 w-[100px]">E-Mail</th>
+                <th className="p-2 w-[150px]">Name</th>
+                <th className="p-2 w-[150px]">E-Mail</th>
                 <th className="p-2 w-[100px]">Tel</th>
                 <th className="p-2 w-[50px] text-center">Action</th>
               </tr>
