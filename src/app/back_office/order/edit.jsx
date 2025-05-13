@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 import { RiImageAddLine, RiEditBoxLine } from "react-icons/ri";
 
 export default function Edit() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [product_name, setProduct_name] = useState("");
   const [amount, setAmount] = useState("");
-  const [image, setImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [total_price, setTotal_Price] = useState("");
+  const [status, setStatus] = useState("");
+  const [customer_name, setCustomer_name] = useState("");
+  const [tel, setTel] = useState("");
+  const [address, setAddress] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -59,74 +61,96 @@ export default function Edit() {
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box max-w max-h flex flex-col">
           <form method="dialog">
-            <h2 className="font-bold text-lg mb-2">Edit Product</h2>
+            <h2 className="font-bold text-lg mb-2">Edit Order</h2>
 
             {/* Product ID (ถ้าต้องใช้เพิ่มในอนาคต) */}
-            <p className="py-2 pl-2">Product ID :</p>
-
-            {/* อัปโหลดรูป */}
-            <div className="flex items-center justify-center p-6">
-              <label htmlFor="image-upload" className="cursor-pointer">
-                {previewUrl ? (
-                  <img
-                    src={previewUrl}
-                    alt="Preview"
-                    className="w-40 h-40 object-cover rounded-md"
-                  />
-                ) : (
-                  <RiImageAddLine className="h-40 w-40 text-gray-400" />
-                )}
-              </label>
-              <input
-                id="image-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
-              />
-            </div>
+            <p className="py-2 pl-2">Order ID :</p>
 
             {/* Input: name */}
-            <div className="flex p-2">
-              <input
-                type="text"
-                className="input validator w-full"
-                placeholder="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-
+            {/* fieldset order item */}
+            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-2">
+              <legend className="fieldset-legend">Order item</legend>
+              <div className='flex flex-row'>
+                <div className="p-1 w-6/10">
+                  <label className="label pb-1">product name</label>
+                  <input
+                    type="text"
+                    className="input"
+                    value={product_name}
+                    onChange={(e) => setProduct_name(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="p-1 w-4/10">
+                  <label className="label pb-1">amount</label>
+                  <input
+                    type="text"
+                    className="input "
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className='flex flex-row'>
+                <div className="flex flex-col p-1 w-6/10">
+                  <label className="label pb-1">total price</label>
+                  <input
+                    type="text"
+                    className="input"
+                    value={total_price}
+                    onChange={(e) => setTotal_Price(e.target.value)}
+                    required
+                  />
+                </div>
+                {/* ฝาก setvalue ให้ status ด้วยนะ */}
+                <div className="flex flex-col p-1 w-4/10">
+                  <label className="label pb-1">status</label>
+                  <select defaultValue={status} 
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="select">
+                    <option>pending</option>
+                    <option>shipped</option>
+                    <option>in transit</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
             {/* Input: price */}
-            <div className="flex p-2">
-              <input
-                type="number"
-                className="input validator w-2/4"
-                required
-                placeholder="price"
-                min="1"
-                max="1000"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              <p className="pl-4 text-xs validator-hint text-gray-500">Must enter a number</p>
-            </div>
-
-            {/* Input: amount */}
-            <div className="flex p-2">
-              <input
-                type="number"
-                className="input validator w-2/4"
-                required
-                placeholder="amount"
-                min="1"
-                max="1000"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
-              <p className="pl-4 text-xs validator-hint text-gray-500">Must enter a number</p>
-            </div>
+            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-2">
+              <legend className="fieldset-legend">Customer information</legend>
+              
+                <div className="flex flex-col p-1 w-full">
+                  <label className="label pb-1">name</label>
+                  <input
+                    type="text"
+                    className="input w-6/10"
+                    value={customer_name}
+                    onChange={(e) => setCustomer_name(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="flex flex-col p-1 w-full">
+                  <label className="label pb-1">tel</label>
+                  <input
+                    type="text"
+                    className="input w-6/10"
+                    value={tel}
+                    onChange={(e) => setTel(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="flex flex-col p-1 w-full">
+                  <label className="label pb-1">address</label>
+                  <textarea
+                    type="text"
+                    className="input w-6/10 h-20 p-3"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                  />
+                </div>
+            </fieldset>
           </form>
 
           {/* ปุ่ม Submit & Cancel */}
