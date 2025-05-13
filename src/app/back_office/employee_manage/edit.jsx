@@ -59,10 +59,10 @@ export default function Edit() {
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box max-w max-h flex flex-col">
           <form method="dialog">
-            <h2 className="font-bold text-lg mb-2">Edit Product</h2>
+            <h2 className="font-bold text-lg mb-2">Edit Employee</h2>
 
             {/* Product ID (ถ้าต้องใช้เพิ่มในอนาคต) */}
-            <p className="py-2 pl-2">Product ID :</p>
+            <p className="py-2 pl-2">Employee ID :</p>
 
             {/* อัปโหลดรูป */}
             <div className="flex items-center justify-center p-6">
