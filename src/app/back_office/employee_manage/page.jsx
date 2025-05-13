@@ -115,9 +115,9 @@ export default function StockLayout() {
                 <th className="p-2 w-[50px]">#</th>
                 <th className="p-2 w-[50px]">ID</th>
                 <th className="p-2 w-[150px]">Name</th>
-                <th className="p-2 w-[150px] text-center">E-mail</th>
-                <th className="p-2 w-[100px] text-center">TEL</th>
-                <th className="p-2 w-[50px] text-center">Salary</th>
+                <th className="p-2 w-[150px] ">E-mail</th>
+                <th className="p-2 w-[100px] ">TEL</th>
+                <th className="p-2 w-[50px] ">Salary</th>
                 <th className="p-2 w-[100px] text-center">Status</th>
                 <th className="p-2 w-[150px] text-center">Action</th>
               </tr>
@@ -131,7 +131,7 @@ export default function StockLayout() {
                   <td className="p-2 ">{item.price}</td>
                   <td className="p-2 ">{item.amount}</td>
                   <td className="p-2 ">{item.amount}</td>
-                  <td className="p-2 text-center">{item.amount}</td>
+                  <td className="p-2 text-center">{item.price}</td>
                   <td className="p-2 flex justify-center gap-2">
                     <Edit /> <Delete />
                   </td>
