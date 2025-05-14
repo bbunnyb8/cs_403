@@ -9,6 +9,8 @@ export default function Edit() {
   const [amount, setAmount] = useState("");
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [birthDate, setBirthDate] = useState(null);
+  
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -21,7 +23,6 @@ export default function Edit() {
       reader.readAsDataURL(file);
     }
   };
-  (update_employee)
 
   const handleSubmit = async () => {
     try {
