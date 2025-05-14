@@ -45,6 +45,7 @@ export default function Modal() {
       if (response.ok) {
         console.log('Product added successfully:', data);
         document.getElementById("my_modal_4").close();
+        window.location.reload();
       } else {
         console.error('Error:', data.error);
       }
