@@ -10,6 +10,19 @@ export default function Edit() {
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  (update_employee)
+
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
