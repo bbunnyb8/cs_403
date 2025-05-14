@@ -14,7 +14,7 @@ export default function StockLayout() {
 
   // โหลดข้อมูลจากฐานข้อมูล
   useEffect(() => {
-    fetch('/api/stock') // <-- แก้ path ตาม API ที่คุณทำไว้
+    fetch('/api/customer') // <-- แก้ path ตาม API ที่คุณทำไว้
       .then((res) => res.json())
       .then((data) => {
         setStockData(data);
@@ -123,10 +123,10 @@ export default function StockLayout() {
               {currentItems.map((item, idx) => (
                 <tr key={idx} className="border-t hover:bg-gray-50 h-2">
                   <td className="p-2">{startIndex + idx + 1}</td>
-                  <td className="p-2">{item.product_id}</td>
+                  <td className="p-2">{item.user_id}</td>
                   <td className="p-2">{item.name}</td>
-                  <td className="p-2">{item.price}</td>
-                  <td className="p-2">{item.amount}</td>
+                  <td className="p-2">{item.email}</td>
+                  <td className="p-2">{item.tel}</td>
                   <td className="p-2 flex justify-center gap-2">
                     <Info /> <Delete />
                   </td>

@@ -24,6 +24,8 @@ export async function POST(request) {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
+
+  
   } catch (err) {
     console.error('Error inserting product:', err);
     return new Response(JSON.stringify({ error: 'ไม่สามารถเพิ่มสินค้าลงฐานข้อมูลได้' }), {
