@@ -55,7 +55,7 @@ export default function Edit() {
           className="btn btn-square btn-ghost"
           onClick={() => document.getElementById("my_EditEmploy").showModal()}
         >
-          <RiEditBoxLine className="h-5 w-5 text-info-content" />
+          <RiEditBoxLine className="h-5 w-5 text-warning" />
         </button>
   
         <dialog id="my_EditEmploy" className="modal">
