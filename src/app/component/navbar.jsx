@@ -44,6 +44,11 @@ function nevbar() {
                             </Link>
                             </li>
                             <li>
+                            <Link href={"/front_office/order"} className="justify-between">
+                                My Order
+                            </Link>
+                            </li>
+                            <li>
                             <Link href={"/front_office/login"} className="justify-between">
                                 Logout
                             </Link>
