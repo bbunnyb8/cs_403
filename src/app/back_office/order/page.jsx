@@ -1,9 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Sidebar from '@/app/component/sidebar';
-
 import Edit from "./edit";
-import Delete from "./delete_pd";
+import Delete from "./delete_od";
 import { IoSearch } from "react-icons/io5";
 
 export default function StockLayout() {
@@ -15,7 +14,7 @@ export default function StockLayout() {
 
   // โหลดข้อมูลจากฐานข้อมูล
   useEffect(() => {
-    fetch('/api/stock') // <-- แก้ path ตาม API ที่คุณทำไว้
+    fetch('/api/order') // <-- แก้ path ตาม API ที่คุณทำไว้
       .then((res) => res.json())
       .then((data) => {
         setStockData(data);
@@ -27,7 +26,7 @@ export default function StockLayout() {
   // อัปเดต filteredData ตาม searchQuery
   useEffect(() => {
     const filtered = stockData.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      String(item.order_id).toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredData(filtered);
     setCurrentPage(1); // กลับไปหน้าแรกเมื่อกรองใหม่
@@ -110,7 +109,7 @@ export default function StockLayout() {
               <tr className="bg-gray-100 text-left text-gray-600 uppercase">
                 <th className="p-2 w-[50px]">#</th>
                 <th className="p-2 w-[50px]">ID</th>
-                <th className="p-2 w-[200px]">Customer</th>
+                <th className="p-2 w-[200px]">Name</th>
                 <th className="p-2 w-[100px]">Date</th>
                 <th className="p-2 w-[100px]">Item</th>
                 <th className="p-2 w-[100px]">Total</th>
@@ -123,14 +122,22 @@ export default function StockLayout() {
               {currentItems.map((item, idx) => (
                 <tr key={idx} className="border-t hover:bg-gray-50 h-2">
                   <td className="p-2">{startIndex + idx + 1}</td>
-                  <td className="p-2">{item.product_id}</td>
+                  <td className="p-2">{item.order_id}</td>
                   <td className="p-2">{item.name}</td>
-                  <td className="p-2">{item.price}</td>
-                  <td className="p-2">{item.price}</td>
-                  <td className="p-2">{item.price}</td>
-                  <td className="p-2 text-center">{item.price}</td>
+                  <td className="p-2">{item.date}</td>
+                  <td className="p-2">{item.total_amount}</td>
+                  <td className="p-2">{item.total_price}</td>
+                  <td className="p-2 text-center">{item.status}</td>
                   <td className="p-2 flex justify-center gap-2">
-                    <Edit /> <Delete />
+                    <Edit order={item} /> <Delete orderId={item.order_id} onDeleteSuccess={() => {
+  // โหลดข้อมูลใหม่หลังลบ
+  fetch('/api/stock') 
+    .then((res) => res.json())
+    .then((data) => {
+      setStockData(data);
+      setFilteredData(data);
+    });
+}} />
                   </td>
                 </tr>
               ))}
