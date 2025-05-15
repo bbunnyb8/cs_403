@@ -42,7 +42,7 @@ export default function Modal() {
 
       if (response.ok) {
         alert('เพิ่มข้อมูลพนักงานเรียบร้อยแล้ว');
-        document.getElementById("my_modal_4").close();
+        document.getElementById("modal_add").close();
         window.location.reload();
       } else {
         console.error('Error:', data.error);
@@ -62,7 +62,7 @@ export default function Modal() {
         Add Employee
       </button>
 
-      <dialog id="my_modal_4" className="modal">
+      <dialog id="modal_add" className="modal">
         <div className="modal-box max-w max-h flex flex-col">
           <form method="dialog">
             <h2 className="font-bold text-lg mb-2">Add Employee</h2>
@@ -123,7 +123,7 @@ export default function Modal() {
 
           <div className="flex flex-row justify-center p-4 gap-2">
             <button type="button" className="btn btn-success" onClick={handleSubmit}>OK</button>
-            <button type="button" className="btn" onClick={() => document.getElementById("my_modal_4").close()}>Cancel</button>
+            <button type="button" className="btn" onClick={() => document.getElementById("modal_add").close()}>Cancel</button>
           </div>
         </div>
       </dialog>
