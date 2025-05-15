@@ -2,122 +2,111 @@
 import React, { useState } from 'react'
 import { RiEditBoxLine } from "react-icons/ri";
 
-export default function Edit() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [amount, setAmount] = useState("");
-  const [image, setImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [birthDate, setBirthDate] = useState(null);
-  
+export default function Edit({ employee }) {
+  const [name, setName] = useState(employee?.Name || "");
+  const [email, setEmail] = useState(employee?.Email || "");
+  const [tel, setTel] = useState(employee?.TEL || "");
+  const [salary, setSalary] = useState(employee?.Salary || "");
+  const [status, setStatus] = useState(employee?.Status || "");
 
-  const handleSubmit = async () => {
+
+  const dialogId = `modal_edit_${employee?.ID}`;
+
+  const openModal = () => {
+    document.getElementById(dialogId).showModal();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("price", price);
-      formData.append("amount", amount);
-      if (image) formData.append("image", image);
-
-      const res = await fetch("/api/edit-product", {
+      const res = await fetch("/api/edit-em", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ID: employee.ID,
+          Name: name,
+          Email: email,
+          TEL: tel,
+          Salary: salary,
+          Status: status
+        }),
       });
 
-      if (!res.ok) throw new Error("Failed to update product");
+      if (!res.ok) throw new Error("Failed to update employee");
 
-      const data = await res.json();
-      console.log("Success:", data);
-
-      document.getElementById("my_modal_4").close(); // ปิด modal
+      alert("อัปเดตข้อมูลสำเร็จ");
+      document.getElementById(dialogId).close();
+      window.location.reload();
     } catch (err) {
       console.error("Submit error:", err);
-      alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
+      alert("เกิดข้อผิดพลาดในการแก้ไขข้อมูลพนักงาน");
     }
   };
 
-   return (
-      <div className="relative">
-        <button
-          className="btn btn-square btn-ghost"
-           onClick={() => document.getElementById("my_EditEmploy").showModal()}
-        >
-          <RiEditBoxLine className="h-5 w-5 text-warning" />
-        </button>
-  
-        <dialog id="my_EditEmploy" className="modal">
-          <div className="modal-box max-w max-h flex flex-col">
-            <form method="dialog">
-              <h2 className="font-bold text-lg mb-2">Edit employee</h2>
-              <p className="py-2 pl-2">ID :</p>
-  
-              <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
-                <legend className="fieldset-legend">Personal Information</legend>
-                <div className="flex flex-row gap-4">
-                  <div className="form-control">
-                    <label className="label">First Name</label>
-                    <input type="text" className="input w-full" placeholder="Enter your First name" />
-                  </div>
-                  <div className="form-control">
-                    <label className="label">Last Name</label>
-                    <input type="text" className="input w-full" placeholder="Enter your Last name" />
-                  </div>
-                </div>
-                <div className="form-control mt-4">
-                  <label className="label">
-                    <span className="label-text">Birth Date</span>
-                  </label>
-                  <input type="date" className="input input-bordered w-full" />
-                </div>
-              </fieldset>
 
-                          {/* ช่องข้อมูลติดต่อ */}
-            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
-              <legend className="fieldset-legend">Contact Information</legend>
-              <div className="flex flex-row gap-4">
-                <div className="form-control">
-                  <label className="label">phone</label>
-                  <input type="text" className="input w-full" placeholder="Enter your phone" />
-                </div>
-                <div className="form-control">
-                  <label className="label">E-mail</label>
-                  <input type="text" className="input w-full" placeholder="Enter your E-mail" />
-                </div>
-              </div>
-              <div className="form-control mt-4">
-                <label className="label">address</label>
-                <textarea placeholder="address" className="textarea textarea-xs w-full"></textarea>
-              </div>
-             </fieldset>
-                {/* ช่องUsername Password */}
-              <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
-                <legend className="fieldset-legend">Login Information</legend>
-                <div className="flex flex-row gap-4">
-                  <div className="form-control">
-                    <label className="label">username</label>
-                    <input type="text" className="input w-full" placeholder="Enter your username" />
-                  </div>
-                  <div className="form-control">
-                    <label className="label">password</label>
-                    <input type="text" className="input w-full" placeholder="Enter your password" />
-                  </div>
-                </div>
-              </fieldset>
-            </form>
+  return (
+    <div className="relative">
+      <button className="btn btn-square btn-ghost" onClick={openModal}>
+        <RiEditBoxLine className="h-5 w-5 text-warning" />
+      </button>
 
-              {/* ปุ่มsumbit and canel */}
-              <div className="flex flex-row justify-end p-4 gap-2">
-                <button type="submit" className="btn btn-neutral btn-dash">Submit</button>
-                <button
-                  type="button"
-                  className="btn btn-dash btn-error"
-                  onClick={() => document.getElementById("my_EditEmploy").close()}
-                >
-                Cancel
-              </button>
+      <dialog id={dialogId} className="modal">
+        <div className="modal-box max-w-md flex flex-col">
+          <form onSubmit={handleSubmit}>
+            <h2 className="font-bold text-lg mb-2">Edit employee</h2>
+            <p className="py-2 pl-2">ID : <span className="font-semibold">{employee?.ID}</span></p>
+
+            <div className="flex flex-col gap-2">
+              <input
+                type="text"
+                className="input"
+                placeholder="Name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                className="input"
+                placeholder="E-mail"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                className="input"
+                placeholder="Phone"
+                value={tel}
+                onChange={e => setTel(e.target.value)}
+                required
+              />
+              <input
+                type="number"
+                className="input"
+                placeholder="Salary"
+                value={salary}
+                onChange={e => setSalary(e.target.value)}
+                required
+              />
+              <select
+                className="input"
+                value={status}
+                onChange={e => setStatus(e.target.value)}
+                required
+              >
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+              </select>
             </div>
-          </div>
-        </dialog>
-      </div>
+
+            <div className="flex flex-row justify-end p-4 gap-2">
+              <button type="submit" className="btn btn-neutral btn-dash">Submit</button>
+              <button type="button" className="btn btn-dash btn-error" onClick={() => document.getElementById(dialogId).close()}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+    </div>
   );
 }

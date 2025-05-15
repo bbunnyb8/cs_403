@@ -43,7 +43,7 @@ export default function Modal() {
 
       const data = await response.json();
       if (response.ok) {
-        console.log('Product added successfully:', data);
+        alert('เพิ่มสินค้าสำเร็จแล้ว'); // แจ้งเตือนหลังอัพเดทเสร็จ
         document.getElementById("my_modal_4").close();
         window.location.reload();
       } else {

@@ -1,139 +1,118 @@
 'use client'
-import React, { useState } from 'react'
-import { RiImageAddLine, RiEditBoxLine } from "react-icons/ri";
+import React, { useState, useEffect } from 'react'
+import { RiEditBoxLine } from "react-icons/ri";
 
-export default function Edit() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [amount, setAmount] = useState("");
-  const [image, setImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+export default function Edit({ order }) {
+  const [product_name, setProduct_name] = useState(order.product_name || "");
+  const [amount, setAmount] = useState(order.amount || "");
+  const [total_price, setTotal_Price] = useState(order.total_price || "");
+  const [status, setStatus] = useState(order.status || "in progress");
+  const [customer_name, setCustomer_name] = useState(order.customer_name || "");
+  const [tel, setTel] = useState(order.tel || "");
+  const [address, setAddress] = useState(order.address || "");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+
+useEffect(() => {
+  if (order.user_id) {
+    console.log(order.user_id)
+    fetch(`/api/user/${order.user_id}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setCustomer_name(data.name || "")
+        setTel(data.tel || "")
+        setAddress(data.address || "")
+      })
+  }
+}, [order.user_id])
+
+  const openModal = () => {
+    document.getElementById(`modal_edit_${order.order_id}`).showModal();
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("name", name);
-      formData.append("price", price);
-      formData.append("amount", amount);
-      if (image) formData.append("image", image);
+      formData.append("order_id", order.order_id);
+      formData.append("status", status);
 
-      const res = await fetch("/api/edit-product", {
+      const res = await fetch("/api/edit-order", {
         method: "POST",
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Failed to update product");
+      if (!res.ok) throw new Error("Failed to update order");
 
-      const data = await res.json();
-      console.log("Success:", data);
-
-      document.getElementById("my_modal_4").close(); // ปิด modal
+      alert("อัปเดตสถานะสำเร็จ");
+      document.getElementById(`modal_edit_${order.order_id}`).close();
+      window.location.reload();
     } catch (err) {
       console.error("Submit error:", err);
-      alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
+      alert("เกิดข้อผิดพลาดในการแก้ไขออเดอร์");
     }
   };
 
   return (
     <div className="relative">
-      {/* ปุ่ม Edit */}
-      <button
-        className="btn btn-square btn-ghost"
-        onClick={() => document.getElementById("my_modal_4").showModal()}
-      >
+      <button className="btn btn-square btn-ghost" onClick={openModal}>
         <RiEditBoxLine className="h-5 w-5 text-warning" />
       </button>
 
-      <dialog id="my_modal_4" className="modal">
-        <div className="modal-box max-w max-h flex flex-col">
-          <form method="dialog">
-            <h2 className="font-bold text-lg mb-2">Edit Product</h2>
+      <dialog id={`modal_edit_${order.order_id}`} className="modal">
+        <div className="modal-box max-w-md flex flex-col">
+          <form onSubmit={handleSubmit}>
+            <h2 className="font-bold text-lg mb-2">Edit Order</h2>
+            <p className="py-2 pl-2">Order ID : {order.order_id}</p>
 
-            {/* Product ID (ถ้าต้องใช้เพิ่มในอนาคต) */}
-            <p className="py-2 pl-2">Product ID :</p>
+            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-2">
+              <legend className="fieldset-legend">Order item</legend>
+              <div className='flex flex-row'>
+                <div className="p-1 w-6/10">
+                  <label className="label pb-1">product name</label>
+                  <input type="text" className="input" value={product_name} readOnly />
+                </div>
+                <div className="p-1 w-4/10">
+                  <label className="label pb-1">amount</label>
+                  <input type="text" className="input" value={amount} readOnly />
+                </div>
+              </div>
+              <div className='flex flex-row'>
+                <div className="flex flex-col p-1 w-6/10">
+                  <label className="label pb-1">total price</label>
+                  <input type="text" className="input" value={total_price} readOnly />
+                </div>
+                <div className="flex flex-col p-1 w-4/10">
+                  <label className="label pb-1">status</label>
+                  <select value={status} onChange={(e) => setStatus(e.target.value)} className="select">
+                    <option value="in progress">in progress</option>
+                    <option value="success">success</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
 
-            {/* อัปโหลดรูป */}
-            <div className="flex items-center justify-center p-6">
-              <label htmlFor="image-upload" className="cursor-pointer">
-                {previewUrl ? (
-                  <img
-                    src={previewUrl}
-                    alt="Preview"
-                    className="w-40 h-40 object-cover rounded-md"
-                  />
-                ) : (
-                  <RiImageAddLine className="h-40 w-40 text-gray-400" />
-                )}
-              </label>
-              <input
-                id="image-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
-              />
-            </div>
+            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-2">
+              <legend className="fieldset-legend">Customer information</legend>
+              <div className="flex flex-col p-1 w-full">
+                <label className="label pb-1">name</label>
+                <input type="text" className="input" value={customer_name} readOnly />
+              </div>
+              <div className="flex flex-col p-1 w-full">
+                <label className="label pb-1">tel</label>
+                <input type="text" className="input" value={tel} readOnly />
+              </div>
+              <div className="flex flex-col p-1 w-full">
+                <label className="label pb-1">address</label>
+                <textarea className="input h-20 p-3" value={address} readOnly />
+              </div>
+            </fieldset>
 
-            {/* Input: name */}
-            <div className="flex p-2">
-              <input
-                type="text"
-                className="input validator w-full"
-                placeholder="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Input: price */}
-            <div className="flex p-2">
-              <input
-                type="number"
-                className="input validator w-2/4"
-                required
-                placeholder="price"
-                min="1"
-                max="1000"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              <p className="pl-4 text-xs validator-hint text-gray-500">Must enter a number</p>
-            </div>
-
-            {/* Input: amount */}
-            <div className="flex p-2">
-              <input
-                type="number"
-                className="input validator w-2/4"
-                required
-                placeholder="amount"
-                min="1"
-                max="1000"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
-              <p className="pl-4 text-xs validator-hint text-gray-500">Must enter a number</p>
+            <div className="flex flex-row justify-end p-4 gap-2">
+              <button type="submit" className="btn btn-neutral btn-dash">Submit</button>
+              <button type="button" className="btn btn-dash btn-error" onClick={() => document.getElementById(`modal_edit_${order.order_id}`).close()}>Cancel</button>
             </div>
           </form>
-
-          {/* ปุ่ม Submit & Cancel */}
-          <div className="flex flex-row justify-end p-4 gap-2">
-            <button className="btn btn-neutral btn-dash" onClick={handleSubmit}>Submit</button>
-            <button className="btn btn-dash btn-error" onClick={() => document.getElementById("my_modal_4").close()}>Cancel</button>
-          </div>
         </div>
       </dialog>
     </div>

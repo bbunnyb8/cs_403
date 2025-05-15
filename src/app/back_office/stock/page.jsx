@@ -129,9 +129,24 @@ export default function StockLayout() {
                   <td className="p-2">{item.price}</td>
                   <td className="p-2">{item.amount}</td>
                   <td className="p-2 flex justify-center gap-2">
-                    <Edit /> <Delete productId={item.product_id} onDeleteSuccess={() => {
+                    <Edit 
+  productId={item.product_id} 
+  productName={item.name} 
+  productPrice={item.price} 
+  productAmount={item.amount} 
+  onEditSuccess={() => {
+    fetch('/api/stock') // รีเฟรชข้อมูลหลังจากแก้ไข
+      .then((res) => res.json())
+      .then((data) => {
+        setStockData(data);
+        setFilteredData(data);
+      });
+  }}
+/>
+
+<Delete productId={item.product_id} onDeleteSuccess={() => {
   // โหลดข้อมูลใหม่หลังลบ
-  fetch('/api/delete-product')
+  fetch('/api/stock') 
     .then((res) => res.json())
     .then((data) => {
       setStockData(data);

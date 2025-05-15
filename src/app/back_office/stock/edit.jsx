@@ -2,15 +2,17 @@
 import React, { useState } from 'react'
 import { RiImageAddLine, RiEditBoxLine } from "react-icons/ri";
 
-export default function Edit() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [amount, setAmount] = useState("");
+export default function Edit({ productId, productName, productPrice, productAmount, onEditSuccess }) {
+  const [name, setName] = useState(productName || "");
+  const [price, setPrice] = useState(productPrice || "");
+  const [amount, setAmount] = useState(productAmount || "");
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  
+  const modalId = `edit-modal-${productId}`;
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0];ไไ
     setImage(file);
     if (file) {
       const reader = new FileReader();
@@ -21,48 +23,62 @@ export default function Edit() {
     }
   };
 
-  const handleSubmit = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("price", price);
-      formData.append("amount", amount);
-      if (image) formData.append("image", image);
+const handleSubmit = async () => {
+  console.log("Product ID being submitted:", productId); // ตรวจสอบค่าที่ส่งไป
+  try {
+    const formData = new FormData();
+    formData.append("product_id", productId);
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("amount", amount);
+    if (image) formData.append("image", image);
 
-      const res = await fetch("/api/edit-product", {
-        method: "POST",
-        body: formData,
-      });
+    const res = await fetch("/api/edit-product", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (!res.ok) throw new Error("Failed to update product");
+    if (!res.ok) throw new Error("Failed to update product");
 
-      const data = await res.json();
-      console.log("Success:", data);
+    const data = await res.json();
+    console.log("Success:", data);
 
-      document.getElementById("my_modal_4").close(); // ปิด modal
-    } catch (err) {
-      console.error("Submit error:", err);
-      alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
-    }
-  };
+    // เรียก onEditSuccess เพื่อต้องการอัปเดตข้อมูลใน UI
+    onEditSuccess(); // เรียกใช้ฟังก์ชันที่ส่งมาจาก StockLayout
 
+    alert("อัปเดตสินค้าสำเร็จ");
+    window.location.reload(); // โหลดหน้าใหม่เพื่อแสดงข้อมูลที่อัปเดต
+  } catch (err) {
+    console.error("Submit error:", err);
+    alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
+  }
+};
   return (
     <div className="relative">
       {/* ปุ่ม Edit */}
       <button
         className="btn btn-square btn-ghost"
-        onClick={() => document.getElementById("my_modal_4").showModal()}
+
+        onClick={() => document.getElementById(modalId).showModal()}
+
       >
         <RiEditBoxLine className="h-5 w-5 text-warning" />
       </button>
 
-      <dialog id="my_modal_4" className="modal">
+
+      <dialog id={modalId} className="modal">
+
         <div className="modal-box max-w max-h flex flex-col">
           <form method="dialog">
             <h2 className="font-bold text-lg mb-2">Edit Product</h2>
 
             {/* Product ID (ถ้าต้องใช้เพิ่มในอนาคต) */}
-            <p className="py-2 pl-2">Product ID :</p>
+            {/* Product ID */}
+<div className="flex flex-col p-2">
+  <label className="mb-1 font-medium">
+    Product ID : <span className="font-normal">{productId}</span>
+  </label>
+</div>
 
             {/* อัปโหลดรูป */}
             <div className="flex items-center justify-center p-6">
@@ -99,8 +115,10 @@ export default function Edit() {
             </div>
 
             {/* Input: price */}
-            <div className="flex p-2">
+            <div className="flex flex-col p-2">
+              <label htmlFor={`edit-price-${productId}`} className="mb-1 font-medium">Price</label>
               <input
+                id={`edit-price-${productId}`}
                 type="number"
                 className="input validator w-2/4"
                 required
@@ -114,8 +132,10 @@ export default function Edit() {
             </div>
 
             {/* Input: amount */}
-            <div className="flex p-2">
+            <div className="flex flex-col p-2">
+              <label htmlFor={`edit-amount-${productId}`} className="mb-1 font-medium">Amount</label>
               <input
+                id={`edit-amount-${productId}`}
                 type="number"
                 className="input validator w-2/4"
                 required
@@ -132,7 +152,8 @@ export default function Edit() {
           {/* ปุ่ม Submit & Cancel */}
           <div className="flex flex-row justify-end p-4 gap-2">
             <button className="btn btn-neutral btn-dash" onClick={handleSubmit}>Submit</button>
-            <button className="btn btn-dash btn-error" onClick={() => document.getElementById("my_modal_4").close()}>Cancel</button>
+            <button className="btn btn-dash btn-error" onClick={() => document.getElementById(modalId).close()}>Cancel</button>
+
           </div>
         </div>
       </dialog>
