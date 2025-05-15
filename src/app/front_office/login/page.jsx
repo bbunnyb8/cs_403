@@ -68,7 +68,7 @@ export default function LoginPage() {
             />
           </label>
           <div className="flex flex-col items-center mt-6">
-            <button type="submit" className="btn btn-lg  btn-outline btn-error w-40">
+            <button type="submit" className="btn btn-lg btn-dash btn-primary w-40">
               login
             </button>
           </div>

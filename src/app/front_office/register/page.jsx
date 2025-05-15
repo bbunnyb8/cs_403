@@ -86,7 +86,7 @@ export default function LoginPage() {
             />
           </label>
           <div className="flex flex-col items-center mt-6">
-            <button className="btn btn-outline btn-error btn-lg">register</button>
+            <button className="btn btn-outline btn-primary btn-lg">register</button>
           </div>
         {/* </form> */}
       </div>

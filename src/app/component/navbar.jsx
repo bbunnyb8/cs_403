@@ -10,25 +10,21 @@ function nevbar() {
     <div className="navbar bg-base-100 shadow-sm rounded-xl ">
         <div className=' navbar p-2'>
             <div className="navbar-start">
-                <img src= "/logo.png" alt="Logo" className="w-10" />
+                
                 <ul className='menu menu-horizontal'>
                     <Link href={"/front_office/home"}>
-                    <li className='pl-3'> <button className="btn btn-ghost"><MdBakeryDining className='h-8 w-8'/>Home</button> </li>
+                    <li > <button className="btn btn-ghost"><MdBakeryDining className='h-8 w-8'/>Home</button> </li>
                     </Link>
                 </ul>
             </div>
+            <div className='navbar-center'>
+                <img src= "/logo-full.png" alt="Logo" className="w-30" />
+            </div>
 
             <div className="navbar-end gap-4">
-                <label className="input input-bordered flex items-center w-60">
-                        <IoMdSearch className="text-gray-400" />
-                        <input
-                        type="search"
-                        className="grow"
-                        placeholder="search"
-                        />
-                </label>
+                
 
-                <div className="flex-none">
+                <div className="flex flex-row gap-2">
                     <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
@@ -66,7 +62,7 @@ function nevbar() {
                             </Link>
                             </li>
                             <li>
-                            <Link href={"/front_office/order"} className="justify-between">
+                            <Link href={"/front_office/my_order"} className="justify-between">
                                 My Order
                             </Link>
                             </li>
