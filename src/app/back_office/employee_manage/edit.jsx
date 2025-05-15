@@ -101,8 +101,8 @@ export default function Edit({ employee }) {
             </div>
 
             <div className="flex flex-row justify-end p-4 gap-2">
-              <button type="submit" className="btn btn-neutral btn-dash">Submit</button>
-              <button type="button" className="btn btn-dash btn-error" onClick={() => document.getElementById(dialogId).close()}>Cancel</button>
+              <button type="submit" className="btn btn-success">Submit</button>
+              <button type="button" className="btn btn btn-outline border-base-300 text-base-content/70" onClick={() => document.getElementById(dialogId).close()}>Cancel</button>
             </div>
           </form>
         </div>

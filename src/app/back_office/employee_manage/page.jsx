@@ -68,7 +68,7 @@ export default function StockLayout() {
         <button
           key={page}
           onClick={() => setCurrentPage(page)}
-          className={`join-item btn ${currentPage === page ? 'btn-active btn-primary' : ''}`}
+          className={`join-item btn ${currentPage === page ? 'btn-active btn-accent' : ''}`}
         >
           {page}
         </button>

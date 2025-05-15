@@ -57,7 +57,7 @@ export default function Modal() {
   return (
     <div className="relative">
       <button
-        className="btn btn-accent"
+        className="btn btn-success"
         onClick={() => document.getElementById("my_modal_4").showModal()}
       >
         <IoIosAddCircleOutline className="h-5 w-5" />
@@ -137,10 +137,10 @@ export default function Modal() {
 
             {/* Buttons */}
             <div className="flex flex-row justify-end p-4 gap-2">
-              <button type="submit" className="btn btn-neutral btn-dash">Submit</button>
+              <button type="submit" className="btn btn-success">Submit</button>
               <button
                 type="button"
-                className="btn btn-dash btn-error"
+                className="btn btn-outline border-base-300 text-base-content/70"
                 onClick={() => document.getElementById("my_modal_4").close()}
               >
                 Cancel

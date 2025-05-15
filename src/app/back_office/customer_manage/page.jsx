@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Sidebar from '@/app/component/sidebar';
-import Delete from "./delete_pd";
+
 import { IoSearch } from "react-icons/io5";
 import Info from './info';
 
@@ -128,7 +128,7 @@ export default function StockLayout() {
                   <td className="p-2">{item.email}</td>
                   <td className="p-2">{item.tel}</td>
                   <td className="p-2 flex justify-center gap-2">
-                    <Info customer={item} /> <Delete />
+                    <Info customer={item} />
                   </td>
                 </tr>
               ))}

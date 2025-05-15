@@ -151,8 +151,8 @@ const handleSubmit = async () => {
 
           {/* ปุ่ม Submit & Cancel */}
           <div className="flex flex-row justify-end p-4 gap-2">
-            <button className="btn btn-neutral btn-dash" onClick={handleSubmit}>Submit</button>
-            <button className="btn btn-dash btn-error" onClick={() => document.getElementById(modalId).close()}>Cancel</button>
+            <button className="btn btn-neutral btn-success" onClick={handleSubmit}>Submit</button>
+            <button className="btn btn-outline border-base-300 text-base-content/70" onClick={() => document.getElementById(modalId).close()}>Cancel</button>
 
           </div>
         </div>
