@@ -36,7 +36,7 @@ export default function Info({ customer }) {
         className="btn btn-square btn-ghost"
         onClick={() => document.getElementById(dialogId).showModal()}
       >
-        <RiEmojiStickerLine className="h-5 w-5 text-info-content" />
+        <RiEmojiStickerLine className="h-5 w-5 text-info" />
       </button>
 
       <dialog id={dialogId} className="modal">
