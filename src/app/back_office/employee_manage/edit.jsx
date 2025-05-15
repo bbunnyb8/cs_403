@@ -9,7 +9,6 @@ export default function Edit({ employee }) {
   const [salary, setSalary] = useState(employee?.Salary || "");
   const [status, setStatus] = useState(employee?.Status || "");
 
-
   const dialogId = `modal_edit_${employee?.ID}`;
 
   const openModal = () => {
@@ -42,6 +41,7 @@ export default function Edit({ employee }) {
       alert("เกิดข้อผิดพลาดในการแก้ไขข้อมูลพนักงาน");
     }
   };
+
 
 
   return (
