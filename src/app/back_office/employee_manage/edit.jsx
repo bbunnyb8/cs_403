@@ -42,6 +42,8 @@ export default function Edit({ employee }) {
     }
   };
 
+
+
   return (
     <div className="relative">
       <button className="btn btn-square btn-ghost" onClick={openModal}>
