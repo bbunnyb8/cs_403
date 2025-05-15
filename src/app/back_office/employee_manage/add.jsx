@@ -16,6 +16,7 @@ export default function Modal() {
     status: '',
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -55,7 +56,7 @@ export default function Modal() {
     <div className="relative">
       <button
         className="btn btn-accent"
-        onClick={() => document.getElementById("my_modal_4").showModal()}
+        onClick={() => document.getElementById("modal_add").showModal()}
       >
         <IoIosAddCircleOutline className="h-5 w-5" />
         Add Employee
@@ -115,6 +116,7 @@ export default function Modal() {
     <option value="offline">Offline</option>
   </select>
 </div>
+
 
             </div>
           </form>

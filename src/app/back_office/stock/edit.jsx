@@ -58,12 +58,16 @@ const handleSubmit = async () => {
       {/* ปุ่ม Edit */}
       <button
         className="btn btn-square btn-ghost"
+
         onClick={() => document.getElementById(modalId).showModal()}
+
       >
         <RiEditBoxLine className="h-5 w-5 text-warning" />
       </button>
 
+
       <dialog id={modalId} className="modal">
+
         <div className="modal-box max-w max-h flex flex-col">
           <form method="dialog">
             <h2 className="font-bold text-lg mb-2">Edit Product</h2>
@@ -149,6 +153,7 @@ const handleSubmit = async () => {
           <div className="flex flex-row justify-end p-4 gap-2">
             <button className="btn btn-neutral btn-dash" onClick={handleSubmit}>Submit</button>
             <button className="btn btn-dash btn-error" onClick={() => document.getElementById(modalId).close()}>Cancel</button>
+
           </div>
         </div>
       </dialog>
