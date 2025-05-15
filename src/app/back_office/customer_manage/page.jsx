@@ -128,7 +128,7 @@ export default function StockLayout() {
                   <td className="p-2">{item.email}</td>
                   <td className="p-2">{item.tel}</td>
                   <td className="p-2 flex justify-center gap-2">
-                    <Info /> <Delete />
+                    <Info customer={item} /> <Delete />
                   </td>
                 </tr>
               ))}
