@@ -50,10 +50,10 @@ function Navbar() {
               </div>            
               <div
                 tabIndex={0}
-                className="card card-compact dropdown-content bg-base-100 z-[100] mt-3 w-64 shadow">
+                className="card card-compact dropdown-content bg-base-100 z-[100] mt-3 w-80 shadow">
                 <div className="card-body">
                   {cartItems.length > 0 ? (
-                    <>
+                    <div>
                       <span className="text-lg font-bold">{totalItemsInCart} Item{totalItemsInCart > 1 ? 's' : ''} in cart</span>
                       <div className="max-h-60 overflow-y-auto my-2 pr-2">
                         {cartItems.map(item => (                        
@@ -62,15 +62,19 @@ function Navbar() {
                               <p className="font-semibold">{item.name}</p>
                               <p className="text-xs text-gray-500">Qty: {item.quantity} x ฿{item.price.toFixed(2)}</p>
                             </div>
-                            <p className="font-medium">฿{(item.price * item.quantity).toFixed(2)}</p>
+                            <div>
+                              <p className="font-medium">฿{(item.price * item.quantity).toFixed(2)}</p>
+                            </div>
                           </div>
                         ))}
                       </div>
-                      <span className="text-neutral">Subtotal: ฿{subtotal.toFixed(2)}</span>
+                      <div className='pt-2 pb-2'>
+                          <span className="text-neutral">Subtotal: ฿{subtotal.toFixed(2)}</span>
+                      </div>
                       <div className="card-actions mt-2">
                         <button onClick={openCartModal} className="btn btn-primary btn-block">View cart</button> 
                       </div>
-                    </>
+                    </div>
                   ) : (
                     <p className="text-center text-gray-500">Your cart is empty.</p>
                   )}
