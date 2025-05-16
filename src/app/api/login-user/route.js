@@ -12,7 +12,7 @@ export async function POST(req) {
     const connection = await mysql.createConnection({
         host: 'localhost',
         user: 'root',     // แก้ให้ตรงกับ phpMyAdmin ของคุณ
-        password: '12345678',     // แก้ให้ตรง
+        password: '1111111111',     // แก้ให้ตรง
         database: 'be_luna'
     })
 
