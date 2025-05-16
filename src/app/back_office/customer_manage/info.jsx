@@ -83,7 +83,7 @@ export default function Info({ customer }) {
                 <label className="label pb-1">address</label>
                 <textarea 
                   type="text" 
-                  className="textarea textarea-xl p-3" 
+                  className="textarea p-3" 
                   value={address} 
                   readOnly
                 />
@@ -120,7 +120,7 @@ export default function Info({ customer }) {
           <div className="flex flex-row justify-end p-4 gap-2">
             <button
               type="button"
-              className="btn btn-dash btn-accent"
+              className="btn btn-outline border-base-300 text-base-content/70"
               onClick={() => document.getElementById(dialogId).close()}
             >
               Cancel
