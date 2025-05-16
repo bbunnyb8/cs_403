@@ -1,8 +1,8 @@
 "use client";
 import React from 'react' ;
 
-import { IoMdSearch } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
+
+import { FaCircleUser } from "react-icons/fa6";
 import { MdBakeryDining } from "react-icons/md";
 import Link from 'next/link'
 import { useCart } from './cartcontext';
@@ -16,8 +16,10 @@ function Navbar() {
   // คำนวณราคารวมของสินค้าในตะกร้า
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
+
   return (
     <div className="navbar bg-base-100 shadow-sm rounded-xl ">
+
       <div className='navbar p-2'>
         <div className="navbar-start">
           <img src="/logo.png" alt="Logo" className="w-10" />
@@ -74,6 +76,7 @@ function Navbar() {
                       <div className="card-actions mt-2">
                         <button onClick={openCartModal} className="btn btn-primary btn-block">View cart</button> 
                       </div>
+
                     </div>
                   ) : (
                     <p className="text-center text-gray-500">Your cart is empty.</p>
@@ -84,10 +87,8 @@ function Navbar() {
 
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <button className="btn btn-ghost btn-circle">
-                                    <FaUser />
-                                </button>
+                            <div className="indicator">
+                                <FaCircleUser className="h-5 w-5" />
                             </div>
                         </div>
                         <ul
@@ -99,7 +100,7 @@ function Navbar() {
                             </Link>
                             </li>
                             <li>
-                            <Link href={"/front_office/order"} className="justify-between">
+                            <Link href={"/front_office/my_order"} className="justify-between">
                                 My Order
                             </Link>
                             </li>
