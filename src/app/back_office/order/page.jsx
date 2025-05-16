@@ -26,7 +26,7 @@ export default function StockLayout() {
   // อัปเดต filteredData ตาม searchQuery
   useEffect(() => {
     const filtered = stockData.filter((item) =>
-      String(item.order_id).toLowerCase().includes(searchQuery.toLowerCase())
+      String(item.name).toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredData(filtered);
     setCurrentPage(1); // กลับไปหน้าแรกเมื่อกรองใหม่

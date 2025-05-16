@@ -4,9 +4,7 @@ import { RiEmojiStickerLine } from "react-icons/ri";
 
 export default function Info({ customer }) {
   const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [phone, setPhone] = useState("");
+  const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [username, setUsername] = useState("");
@@ -16,9 +14,7 @@ export default function Info({ customer }) {
   useEffect(() => {
     if (customer) {
       setName(customer.name || "");
-      setLastname(customer.lastname || "");
-      setBirthday(customer.birthday || "");
-      setPhone(customer.phone || "");
+      setTel(customer.tel || "");
       setEmail(customer.email || "");
       setAddress(customer.address || "");
       setUsername(customer.username || "");
@@ -45,51 +41,30 @@ export default function Info({ customer }) {
             <h2 className="font-bold text-lg mb-2">View Customer</h2>
             <p className="py-2 pl-2">Customer ID : <span className="font-semibold">{customer?.user_id ?? customer?.id}</span></p>
 
-            {/* Input: name , lastname */}
+            {/* Input: name */}
             <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap bg-base-200">
               <legend className="fieldset-legend">Personal Information</legend>
-
-              <div className="flex flex-col">
+              <div className="flex flex-col w-full">
                 <label className="label pb-1">name</label>
-                <input 
-                  type="text" 
-                  className="input"
-                  value={name} 
-                  readOnly
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">last name</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={lastname} 
-                  readOnly
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">birthday</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={birthday} 
+                <input
+                  type="text"
+                  className="input w-full"
+                  value={name}
                   readOnly
                 />
               </div>
             </fieldset>
 
-            {/* Input: phone , email , address */}
+            {/* Input: tel , email , address */}
             <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap">
               <legend className="fieldset-legend">Contact Information</legend>
 
               <div className="flex flex-col">
-                <label className="label pb-1">phone</label>
+                <label className="label pb-1">tel</label>
                 <input 
                   type="text" 
                   className="input" 
-                  value={phone} 
+                  value={tel} 
                   readOnly
                 />
               </div>
@@ -145,7 +120,7 @@ export default function Info({ customer }) {
           <div className="flex flex-row justify-end p-4 gap-2">
             <button
               type="button"
-              className="btn btn-dash btn-error"
+              className="btn btn-dash btn-accent"
               onClick={() => document.getElementById(dialogId).close()}
             >
               Cancel
