@@ -110,10 +110,8 @@ export default function StockLayout() {
                 <th className="p-2 w-[50px]">#</th>
                 <th className="p-2 w-[50px]">ID</th>
                 <th className="p-2 w-[200px]">Name</th>
-                <th className="p-2 w-[100px]">Date</th>
                 <th className="p-2 w-[100px]">Item</th>
                 <th className="p-2 w-[100px]">Total</th>
-                <th className="p-2 w-[150px] text-center">Status</th>
                 <th className="p-2 w-[150px] text-center">Action</th>
               </tr>
             </thead>
@@ -124,10 +122,8 @@ export default function StockLayout() {
                   <td className="p-2">{startIndex + idx + 1}</td>
                   <td className="p-2">{item.order_id}</td>
                   <td className="p-2">{item.name}</td>
-                  <td className="p-2">{item.date}</td>
                   <td className="p-2">{item.total_amount}</td>
                   <td className="p-2">{item.total_price}</td>
-                  <td className="p-2 text-center">{item.status}</td>
                   <td className="p-2 flex justify-center gap-2">
                     <Edit order={item} /> <Delete orderId={item.order_id} onDeleteSuccess={() => {
   // โหลดข้อมูลใหม่หลังลบ
@@ -148,8 +144,6 @@ export default function StockLayout() {
                   <td className="p-2">-</td>
                   <td className="p-2">-</td>
                   <td className="p-2">-</td>
-                  <td className="p-2">-</td>
-                  <td className="p-2"></td>
                   <td className="p-2"></td>
                 </tr>
               ))}

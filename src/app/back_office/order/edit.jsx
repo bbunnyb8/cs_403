@@ -4,13 +4,14 @@ import { RiEditBoxLine } from "react-icons/ri";
 
 export default function Edit({ order }) {
   const [product_name, setProduct_name] = useState(order.product_name || "");
-  const [amount, setAmount] = useState(order.amount || "");
+  const [amount, setAmount] = useState(order.total_amount || "");
   const [total_price, setTotal_Price] = useState(order.total_price || "");
   const [status, setStatus] = useState(order.status || "in progress");
   const [customer_name, setCustomer_name] = useState(order.customer_name || "");
   const [tel, setTel] = useState(order.tel || "");
   const [address, setAddress] = useState(order.address || "");
 
+  
 
 useEffect(() => {
   if (order.user_id) {
@@ -25,6 +26,8 @@ useEffect(() => {
       })
   }
 }, [order.user_id])
+
+
 
   const openModal = () => {
     document.getElementById(`modal_edit_${order.order_id}`).showModal();
@@ -82,13 +85,6 @@ useEffect(() => {
                   <label className="label pb-1">total price</label>
                   <input type="text" className="input" value={total_price} readOnly />
                 </div>
-                <div className="flex flex-col p-1 w-4/10">
-                  <label className="label pb-1">status</label>
-                  <select value={status} onChange={(e) => setStatus(e.target.value)} className="select">
-                    <option value="in progress">in progress</option>
-                    <option value="success">success</option>
-                  </select>
-                </div>
               </div>
             </fieldset>
 
@@ -108,6 +104,24 @@ useEffect(() => {
               </div>
             </fieldset>
 
+            
+            <div className="mt-6 pt-4">
+              <div className="flex flex-col p-1 w-4/10 justify-end">
+                <label className="label pb-1">status</label>
+                <select value={status} onChange={(e) => setStatus(e.target.value)} className="select">
+                  <option value="in progress">in progress</option>
+                  <option value="success">success</option>
+                </select>
+              </div>
+              <div className="flex justify-end items-center mb-2">
+                <span className="text-lg">Amount:</span>
+                <span className="text-lg font-semibold ml-4">{amount}</span>
+              </div>
+              <div className="flex justify-end items-center">
+                <span className="text-xl font-bold">Total:</span>
+                <span className="text-xl font-bold ml-4">฿{total_price}</span>
+              </div>
+            </div>
             <div className="flex flex-row justify-end p-4 gap-2">
               <button type="submit" className="btn btn-neutral btn-success">Submit</button>
               <button type="button" className="btn btn-outline border-base-300 text-base-content/70" onClick={() => document.getElementById(`modal_edit_${order.order_id}`).close()}>Cancel</button>
