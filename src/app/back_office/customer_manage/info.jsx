@@ -1,141 +1,130 @@
 'use client'
-import React, { useState } from 'react'
-import { RiImageAddLine, RiEditBoxLine } from "react-icons/ri";
+import React, { useState, useEffect } from 'react'
 import { RiEmojiStickerLine } from "react-icons/ri";
 
-export default function Info() {
-  // const [name, setName] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [amount, setAmount] = useState("");
-  // const [image, setImage] = useState(null);
-  // const [previewUrl, setPreviewUrl] = useState(null);
+export default function Info({ customer }) {
+  const [name, setName] = useState("");
+  const [tel, setTel] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setImage(file);
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPreviewUrl(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+  // เมื่อ prop customer เปลี่ยน ให้ setState ใหม่
+  useEffect(() => {
+    if (customer) {
+      setName(customer.name || "");
+      setTel(customer.tel || "");
+      setEmail(customer.email || "");
+      setAddress(customer.address || "");
+      setUsername(customer.username || "");
+      setPassword(customer.password || "");
+    }
+  }, [customer]);
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("name", name);
-  //     formData.append("price", price);
-  //     formData.append("amount", amount);
-  //     if (image) formData.append("image", image);
-
-  //     const res = await fetch("/api/edit-product", {
-  //       method: "POST",
-  //       body: formData,
-  //     });
-
-  //     if (!res.ok) throw new Error("Failed to update product");
-
-  //     const data = await res.json();
-  //     console.log("Success:", data);
-
-  //     document.getElementById("my_modal_4").close(); // ปิด modal
-  //   } catch (err) {
-  //     console.error("Submit error:", err);
-  //     alert("เกิดข้อผิดพลาดในการแก้ไขสินค้า");
-  //   }
-  // };
+  // ใช้ id ไม่ซ้ำกันในแต่ละแถว
+  const dialogId = `info_modal_${customer?.user_id ?? customer?.id ?? Math.random()}`;
 
   return (
     <div className="relative">
       {/* ปุ่ม Info */}
       <button
         className="btn btn-square btn-ghost"
-        onClick={() => document.getElementById("my_modal_4").showModal()}
+        onClick={() => document.getElementById(dialogId).showModal()}
       >
-        <RiEditBoxLine className="h-5 w-5 text-info-content" />
+        <RiEmojiStickerLine className="h-5 w-5 text-info" />
       </button>
 
-      <dialog id="my_modal_4" className="modal">
+      <dialog id={dialogId} className="modal">
         <div className="modal-box max-w max-h flex flex-col">
           <form method="dialog">
             <h2 className="font-bold text-lg mb-2">View Customer</h2>
-            <p className="py-2 pl-2">ID :</p>
+            <p className="py-2 pl-2">Customer ID : <span className="font-semibold">{customer?.user_id ?? customer?.id}</span></p>
 
-            <p className="py-2 pl-2"><b>Personal Information</b></p>
-            {/* Input: name and last name */}
-            <div className="flex p-2 space-x-2">
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="name"
-              />
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="last name"
-              />
-            </div>
+            {/* Input: name */}
+            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap bg-base-200">
+              <legend className="fieldset-legend">Personal Information</legend>
+              <div className="flex flex-col w-full">
+                <label className="label pb-1">name</label>
+                <input
+                  type="text"
+                  className="input w-full"
+                  value={name}
+                  readOnly
+                />
+              </div>
+            </fieldset>
 
-            {/* Input: birthday */}
-            <div className="flex p-2">
-              <input
-                type="text"
-                className="input validator w-1/2"
-                placeholder="birthday"
-              />
-            </div>
+            {/* Input: tel , email , address */}
+            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap">
+              <legend className="fieldset-legend">Contact Information</legend>
 
-            <p className="py-2 pl-2"><b>Contact Information</b></p>
-            {/* Input: phone and email */}
-            <div className="flex p-2 space-x-2">
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="phone"
-              />
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="e-mail"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label className="label pb-1">tel</label>
+                <input 
+                  type="text" 
+                  className="input" 
+                  value={tel} 
+                  readOnly
+                />
+              </div>
 
-            {/* Input: address */}
-            <div className="flex p-2">
-              <input
-                type="text"
-                className="input validator w-full"
-                placeholder="address"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label className="label pb-1">e-mail</label>
+                <input 
+                  type="text" 
+                  className="input" 
+                  value={email} 
+                  readOnly
+                />
+              </div>
 
-          <p className="py-2 pl-2"><b>Login Information</b></p>
-            {/* Input: username and password */}
-            <div className="flex p-2 space-x-2">
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="username"
-              />
-              <input
-                type="text"
-                className="input validator w-1/2" // ปรับ width ให้เหลือครึ่งหนึ่ง
-                placeholder="password"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label className="label pb-1">address</label>
+                <textarea 
+                  type="text" 
+                  className="textarea textarea-xl p-3" 
+                  value={address} 
+                  readOnly
+                />
+              </div>
+            </fieldset>
+
+            {/* Input: username password */}
+            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap bg-base-200">
+              <legend className="fieldset-legend">Account Information</legend>
+
+              <div className="flex flex-col">
+                <label className="label pb-1">username</label>
+                <input 
+                  type="text" 
+                  className="input" 
+                  value={username} 
+                  readOnly
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="label pb-1">password</label>
+                <input 
+                  type="text" 
+                  className="input" 
+                  value={password} 
+                  readOnly
+                />
+              </div>
+            </fieldset>
           </form>
 
-          {/* ปุ่ม OK */}
-          <div className="flex flex-row justify-center p-4 gap-2">
-                          <button
-                type="button"
-                className="btn btn-dash btn-success"
-                onClick={() => document.getElementById("my_modal_4").close()}
-              >
-                OK
-              </button>
+          {/* ปุ่ม Cancel */}
+          <div className="flex flex-row justify-end p-4 gap-2">
+            <button
+              type="button"
+              className="btn btn-dash btn-accent"
+              onClick={() => document.getElementById(dialogId).close()}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </dialog>

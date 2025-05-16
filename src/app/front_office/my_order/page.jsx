@@ -1,11 +1,11 @@
 'use client'
-import React, { useState, useEffect } from 'react';
-import Sidebar from '@/app/component/sidebar';
-import Edit from "./edit";
-import Delete from "./delete_od";
-import { IoSearch } from "react-icons/io5";
 
-export default function StockLayout() {
+import Navbar from '@/app/component/navbar'
+import Link from 'next/link'
+import React, { useState, useEffect } from 'react';
+import { IoSearch } from "react-icons/io5";
+import Info from './info';
+function page() {
   const [stockData, setStockData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +26,7 @@ export default function StockLayout() {
   // อัปเดต filteredData ตาม searchQuery
   useEffect(() => {
     const filtered = stockData.filter((item) =>
-      String(item.name).toLowerCase().includes(searchQuery.toLowerCase())
+      String(item.order_id).toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredData(filtered);
     setCurrentPage(1); // กลับไปหน้าแรกเมื่อกรองใหม่
@@ -75,13 +75,10 @@ export default function StockLayout() {
     );
   };
 
-  return (
-    <div className="flex w-full">
-      <div className="fixed">
-        <Sidebar />
-      </div>
+ return (
+    <div className="flex flex-col w-full">
 
-      <div className="relative flex flex-col w-full p-6 ml-60">
+      <div className="relative flex flex-col w-full">
         {/* Header */}
         <div className="flex flex-row gap-2 items-center pb-6">
           <h1 className="text-3xl font-bold">Order</h1>
@@ -94,7 +91,7 @@ export default function StockLayout() {
             <IoSearch className='h-5 w-5'/>
             <input
               type="text"
-              placeholder="Search by name"
+              placeholder="Search by id"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -109,8 +106,6 @@ export default function StockLayout() {
               <tr className="bg-gray-100 text-left text-gray-600 uppercase">
                 <th className="p-2 w-[50px]">#</th>
                 <th className="p-2 w-[50px]">ID</th>
-                <th className="p-2 w-[200px]">Name</th>
-                <th className="p-2 w-[100px]">Date</th>
                 <th className="p-2 w-[100px]">Item</th>
                 <th className="p-2 w-[100px]">Total</th>
                 <th className="p-2 w-[150px] text-center">Status</th>
@@ -123,28 +118,16 @@ export default function StockLayout() {
                 <tr key={idx} className="border-t hover:bg-gray-50 h-2">
                   <td className="p-2">{startIndex + idx + 1}</td>
                   <td className="p-2">{item.order_id}</td>
-                  <td className="p-2">{item.name}</td>
-                  <td className="p-2">{item.date}</td>
                   <td className="p-2">{item.total_amount}</td>
                   <td className="p-2">{item.total_price}</td>
                   <td className="p-2 text-center">{item.status}</td>
                   <td className="p-2 flex justify-center gap-2">
-                    <Edit order={item} /> <Delete orderId={item.order_id} onDeleteSuccess={() => {
-  // โหลดข้อมูลใหม่หลังลบ
-  fetch('/api/stock') 
-    .then((res) => res.json())
-    .then((data) => {
-      setStockData(data);
-      setFilteredData(data);
-    });
-}} />
+                    <Info order={item} />
                   </td>
                 </tr>
               ))}
               {Array.from({ length: itemsPerPage - currentItems.length }).map((_, idx) => (
                 <tr key={`empty-${idx}`} className="border-t h-2">
-                  <td className="p-2">-</td>
-                  <td className="p-2">-</td>
                   <td className="p-2">-</td>
                   <td className="p-2">-</td>
                   <td className="p-2">-</td>
@@ -169,3 +152,11 @@ export default function StockLayout() {
     </div>
   );
 }
+export default page
+
+
+
+
+
+
+ 

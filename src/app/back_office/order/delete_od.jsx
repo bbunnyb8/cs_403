@@ -2,21 +2,21 @@
 import React from 'react'
 import { MdDeleteForever } from "react-icons/md";
 
-function Delete({ productId, onDeleteSuccess }) {
+export default function Delete({ orderId, onDeleteSuccess }) {
   const handleDelete = async () => {
-    const confirm = window.confirm("Are you sure you want to delete this product?");
+    const confirm = window.confirm("Are you sure you want to delete this order?");
     if (!confirm) return;
 
     try {
-      const res = await fetch(`/api/delete-product`, {
-  method: "DELETE",
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ product_id: productId })
-});
+      const res = await fetch(`/api/delete-order`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order_id: orderId })
+      });
 
-      if (!res.ok) throw new Error("ลบสินค้าไม่สำเร็จ");
+      if (!res.ok) throw new Error("Failed to delete product");
 
       alert("ลบสำเร็จ");
       window.location.reload(); // reload หน้าใหม่
@@ -24,7 +24,7 @@ function Delete({ productId, onDeleteSuccess }) {
       if (onDeleteSuccess) onDeleteSuccess(); // callback ให้ reload data
     } catch (err) {
       console.error("Delete error:", err);
-      alert("เกิดข้อผิดพลาดในการลบสินค้า");
+      alert("เกิดข้อผิดพลาดในการลบ");
     }
   };
 
@@ -34,5 +34,3 @@ function Delete({ productId, onDeleteSuccess }) {
     </button>
   );
 }
-
-export default Delete;

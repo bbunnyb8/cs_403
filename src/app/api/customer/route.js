@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 
 export async function GET() {
     try {
-    const [rows] = await db.query('SELECT * FROM products');
+    const [rows] = await db.query('SELECT * FROM users');
     return new Response(JSON.stringify(rows), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -11,4 +11,3 @@ export async function GET() {
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });
     }
 }
-

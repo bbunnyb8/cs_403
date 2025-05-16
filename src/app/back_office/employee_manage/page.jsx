@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '@/app/component/sidebar';
 import Modal from './add';
 import Edit from "./edit";
-import Delete from "./delete_pd";
+import Delete from "./delete_em";
 import { IoSearch } from "react-icons/io5";
 
 export default function StockLayout() {
@@ -15,7 +15,7 @@ export default function StockLayout() {
 
   // โหลดข้อมูลจากฐานข้อมูล
   useEffect(() => {
-    fetch('/api/stock') // <-- แก้ path ตาม API ที่คุณทำไว้
+    fetch('/api/employee') // <-- แก้ path ตาม API ที่คุณทำไว้
       .then((res) => res.json())
       .then((data) => {
         setStockData(data);
@@ -26,12 +26,12 @@ export default function StockLayout() {
 
   // อัปเดต filteredData ตาม searchQuery
   useEffect(() => {
-    const filtered = stockData.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredData(filtered);
-    setCurrentPage(1); // กลับไปหน้าแรกเมื่อกรองใหม่
-  }, [searchQuery, stockData]);
+  const filtered = stockData.filter((item) =>
+    item.Name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  setFilteredData(filtered);
+  setCurrentPage(1); // กลับไปหน้าแรกเมื่อกรองใหม่
+}, [searchQuery, stockData]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -68,7 +68,7 @@ export default function StockLayout() {
         <button
           key={page}
           onClick={() => setCurrentPage(page)}
-          className={`join-item btn ${currentPage === page ? 'btn-active btn-primary' : ''}`}
+          className={`join-item btn ${currentPage === page ? 'btn-active btn-accent' : ''}`}
         >
           {page}
         </button>
@@ -115,9 +115,9 @@ export default function StockLayout() {
                 <th className="p-2 w-[50px]">#</th>
                 <th className="p-2 w-[50px]">ID</th>
                 <th className="p-2 w-[150px]">Name</th>
-                <th className="p-2 w-[150px] text-center">E-mail</th>
-                <th className="p-2 w-[100px] text-center">TEL</th>
-                <th className="p-2 w-[50px] text-center">Salary</th>
+                <th className="p-2 w-[150px]">E-mail</th>
+                <th className="p-2 w-[100px]">TEL</th>
+                <th className="p-2 w-[50px]">Salary</th>
                 <th className="p-2 w-[100px] text-center">Status</th>
                 <th className="p-2 w-[150px] text-center">Action</th>
               </tr>
@@ -126,14 +126,22 @@ export default function StockLayout() {
               {currentItems.map((item, idx) => (
                 <tr key={idx} className="border-t hover:bg-gray-50 h-2">
                   <td className="p-2 ">{startIndex + idx + 1}</td>
-                  <td className="p-2 ">{item.product_id}</td>
-                  <td className="p-2 ">{item.name}</td>
-                  <td className="p-2 ">{item.price}</td>
-                  <td className="p-2 ">{item.amount}</td>
-                  <td className="p-2 ">{item.amount}</td>
-                  <td className="p-2 text-center">{item.amount}</td>
+                  <td className="p-2 ">{item.ID}</td>
+                  <td className="p-2 ">{item.Name}</td>
+                  <td className="p-2 ">{item.Email}</td>
+                  <td className="p-2 ">{item.TEL}</td>
+                  <td className="p-2 ">{item.Salary}</td>
+                  <td className="p-2 text-center">{item.Status}</td>
                   <td className="p-2 flex justify-center gap-2">
-                    <Edit /> <Delete />
+                    <Edit employee={item} /> <Delete employeeId={item.ID} onDeleteSuccess={() => {
+  fetch('/api/employee')
+    .then((res) => res.json())
+    .then((data) => {
+      setStockData(data);
+      setFilteredData(data);
+    });
+}} />
+
                   </td>
                 </tr>
               ))}

@@ -8,20 +8,7 @@ export default function Modal() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
-  const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,8 +30,9 @@ export default function Modal() {
 
       const data = await response.json();
       if (response.ok) {
-        console.log('Product added successfully:', data);
+        alert('เพิ่มสินค้าสำเร็จแล้ว'); // แจ้งเตือนหลังอัพเดทเสร็จ
         document.getElementById("my_modal_4").close();
+        window.location.reload();
       } else {
         console.error('Error:', data.error);
       }
@@ -56,7 +44,7 @@ export default function Modal() {
   return (
     <div className="relative">
       <button
-        className="btn btn-accent"
+        className="btn btn-success"
         onClick={() => document.getElementById("my_modal_4").showModal()}
       >
         <IoIosAddCircleOutline className="h-5 w-5" />
@@ -70,30 +58,9 @@ export default function Modal() {
 
             <p className="py-2 pl-2">Product ID :</p>
 
-            {/* Upload image */}
-            <div className="flex items-center justify-center p-6">
-              <label htmlFor="image-upload" className="cursor-pointer">
-                {previewUrl ? (
-                  <img
-                    src={previewUrl}
-                    alt="Preview"
-                    className="w-40 h-40 object-cover rounded-md"
-                  />
-                ) : (
-                  <RiImageAddLine className="h-40 w-40 text-gray-400" />
-                )}
-              </label>
-              <input
-                id="image-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
-              />
-            </div>
-
             {/* Name */}
-            <div className="flex p-2">
+            <div className="p-2">
+              <label className="label pb-1">product name</label>
               <input
                 type="text"
                 className="input validator w-full"
@@ -105,22 +72,27 @@ export default function Modal() {
             </div>
 
             {/* Price */}
-            <div className="flex p-2">
-              <input
-                type="number"
-                className="input validator w-2/4"
-                placeholder="price"
-                min="1"
-                max="1000"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
-              />
-              <p className="pl-4 text-xs text-gray-500">Must enter a number</p>
+            <div className="p-2">
+              <label className="label pb-1">price</label>
+              <div className="flex items-center">
+                <input
+                  type="number"
+                  className="input validator w-2/4"
+                  placeholder="price"
+                  min="1"
+                  max="1000"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  required
+                />
+                <p className="pl-4 text-xs text-gray-500">Must enter a number</p>
+              </div>
             </div>
 
             {/* Amount */}
-            <div className="flex p-2">
+            <div className="p-2">
+              <label className="label pb-1">amount</label>
+              <div className="flex items-center">
               <input
                 type="number"
                 className="input validator w-2/4"
@@ -131,15 +103,16 @@ export default function Modal() {
                 onChange={(e) => setAmount(e.target.value)}
                 required
               />
-              <p className="pl-4 text-xs text-gray-500">Must enter a number</p>
+                <p className="pl-4 text-xs text-gray-500">Must enter a number</p>
+              </div>
             </div>
 
             {/* Buttons */}
             <div className="flex flex-row justify-end p-4 gap-2">
-              <button type="submit" className="btn btn-neutral btn-dash">Submit</button>
+              <button type="submit" className="btn btn-success">Submit</button>
               <button
                 type="button"
-                className="btn btn-dash btn-error"
+                className="btn btn-outline border-base-300 text-base-content/70"
                 onClick={() => document.getElementById("my_modal_4").close()}
               >
                 Cancel

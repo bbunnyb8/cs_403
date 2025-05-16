@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_ENTRY === 'front_office') {
-      router.replace('/front_office/login');
+      router.replace('/front_office/home');
     } else if (process.env.NEXT_PUBLIC_ENTRY === 'back_office') {
       router.replace('/back_office/order');
     }
