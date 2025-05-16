@@ -49,7 +49,7 @@ export default function CartModal({ isOpen, onClose }) {
 
   return (
     <dialog id="cart_modal_daisy" className="modal modal-bottom sm:modal-middle" ref={modalRef}>
-      <div className="modal-box w-full max-w-screen-2xl"> {/* ปรับขนาด modal-box ตามต้องการ */}
+      <div className="modal-box w-full max-w-none"> {/* ปรับขนาด modal-box ตามต้องการ */}
         {/* ปุ่มปิด Modal ที่ใช้ method="dialog" หรือ onClick={onClose} */}
         <form method="dialog">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>
@@ -67,9 +67,9 @@ export default function CartModal({ isOpen, onClose }) {
               <table className="table table-zebra w-full table-auto">
                 <thead>
                   <tr>
-                    <th className="w-12 px-2 sm:px-4">No.</th>
+                    <th className="w-6 px-1 sm:px-1">No.</th>
                     <th className="">Name</th>
-                    <th className="w-28 px-2 sm:px-4">Price</th>
+                    <th className="w-14 px-1 sm:px-1">Price</th>
                     <th className="w-36 px-2 sm:px-4">Amount</th>
                     <th className="w-32 px-2 sm:px-4">Total</th>
                     <th className="w-28 px-1 sm:px-2">Actions</th>
@@ -78,9 +78,9 @@ export default function CartModal({ isOpen, onClose }) {
                 <tbody>
                   {cartItems.map((item, index) => (
                     <tr key={item.id}>
-                      <th className="px-2 sm:px-4">{index + 1}</th>
+                      <th className="px-1 sm:px-1">{index + 1}</th>
                       <td className="">{item.name}</td>
-                      <td className="px-2 sm:px-4">฿{item.price.toFixed(2)}</td>
+                      <td className="px-1 sm:px-1">฿{item.price.toFixed(2)}</td>
                       <td className="px-2 sm:px-4">
                         <div className="flex items-center justify-center gap-1"> {/* ลด gap */}
                           <button
