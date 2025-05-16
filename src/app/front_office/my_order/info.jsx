@@ -3,28 +3,68 @@ import React, { useState, useEffect } from 'react'
 import { RiEmojiStickerLine } from "react-icons/ri";
 
 export default function Info({ customer }) {
-  const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [stockData, setStockData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  // เมื่อ prop customer เปลี่ยน ให้ setState ใหม่
+  // โหลดข้อมูลจากฐานข้อมูล
   useEffect(() => {
-    if (customer) {
-      setName(customer.name || "");
-      setLastname(customer.lastname || "");
-      setBirthday(customer.birthday || "");
-      setPhone(customer.phone || "");
-      setEmail(customer.email || "");
-      setAddress(customer.address || "");
-      setUsername(customer.username || "");
-      setPassword(customer.password || "");
+    fetch('/api/order') // <-- แก้ path ตาม API ที่คุณทำไว้
+      .then((res) => res.json())
+      .then((data) => {
+        setStockData(data);
+        setFilteredData(data); // แสดงทั้งหมดก่อนกรอง
+      })
+      .catch((err) => console.error('Error fetching stock data:', err));
+  }, []);
+
+  // อัปเดต filteredData ตาม searchQuery
+
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData.slice(startIndex, startIndex + itemsPerPage);
+
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+
+  const renderPageButtons = () => {
+    const pages = [];
+    const maxVisible = 3;
+
+    if (totalPages <= maxVisible + 2) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= maxVisible) {
+        pages.push(...[1, 2, 3, '...', totalPages]);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(...[1, '...', totalPages - 2, totalPages - 1, totalPages]);
+      } else {
+        pages.push(...[1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages]);
+      }
     }
-  }, [customer]);
+
+    return pages.map((page, index) =>
+      page === '...' ? (
+        <button key={`ellipsis-${index}`} className="join-item btn btn-disabled">...</button>
+      ) : (
+        <button
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          className={`join-item btn ${currentPage === page ? 'btn-active btn-accent' : ''}`}
+        >
+          {page}
+        </button>
+      )
+    );
+  };
+
 
   // ใช้ id ไม่ซ้ำกันในแต่ละแถว
   const dialogId = `info_modal_${customer?.user_id ?? customer?.id ?? Math.random()}`;
@@ -41,117 +81,57 @@ export default function Info({ customer }) {
 
       <dialog id={dialogId} className="modal">
         <div className="modal-box max-w max-h flex flex-col">
-          <form method="dialog">
-            <h2 className="font-bold text-lg mb-2">View Customer</h2>
-            <p className="py-2 pl-2">Customer ID : <span className="font-semibold">{customer?.user_id ?? customer?.id}</span></p>
+          {/* Header */}
+            <label className="text-3xl font-bold">Order</label>
 
-            {/* Input: name , lastname */}
-            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap bg-base-200">
-              <legend className="fieldset-legend">Personal Information</legend>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">name</label>
-                <input 
-                  type="text" 
-                  className="input"
-                  value={name} 
-                  readOnly
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">last name</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={lastname} 
-                  readOnly
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">birthday</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={birthday} 
-                  readOnly
-                />
-              </div>
-            </fieldset>
-
-            {/* Input: phone , email , address */}
-            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap">
-              <legend className="fieldset-legend">Contact Information</legend>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">phone</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={phone} 
-                  readOnly
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">e-mail</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={email} 
-                  readOnly
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">address</label>
-                <textarea 
-                  type="text" 
-                  className="textarea textarea-xl p-3" 
-                  value={address} 
-                  readOnly
-                />
-              </div>
-            </fieldset>
-
-            {/* Input: username password */}
-            <fieldset className="fieldset bg-base-200 border-base-300 flex p-2 space-x-2 flex-wrap bg-base-200">
-              <legend className="fieldset-legend">Account Information</legend>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">username</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={username} 
-                  readOnly
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="label pb-1">password</label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  value={password} 
-                  readOnly
-                />
-              </div>
-            </fieldset>
-          </form>
-
-          {/* ปุ่ม Cancel */}
-          <div className="flex flex-row justify-end p-4 gap-2">
+          {/* Table */}
+          <div className=" rounded-lg p-4">
+            <table className="table table-zebra w-full table-auto">
+              <thead>
+                <tr className="text-center">
+                  <th className="w-10 px-1 sm:px-1 ">No.</th>
+                  <th className="w-100 px-1 sm:px-1 text-left">Name</th>
+                  <th className="w-20 px-1 sm:px-1">Price</th>
+                  <th className="w-20 px-2 sm:px-1">Amount</th>
+                  <th className="w-20 px-2 sm:px-1">Total</th>
+                </tr>
+              </thead>
+              {/* TODO: เปลี่ยนชื่อ item ให้ตรงเองนะ จุ๊บ ๆ */}
+              <tbody>
+                {currentItems.map((item, idx) => (
+                  <tr key={idx} className="text-center">
+                    <td className="w-10 px-1 sm:px-1">{startIndex + idx + 1}</td>
+                    <td className="w-100 px-1 sm:px-1 text-left">{item.name}</td>
+                    <td className="w-20 px-1 sm:px-1">{item.price}</td>
+                    <td className="w-20 px-1 sm:px-1">{item.total_amount}</td>
+                    <td className="w-20 px-1 sm:px-1">{item.total_price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-6 pt-4 border-t">
+            <div className="flex justify-end items-center mb-2">
+              <span className="text-lg">Amount:</span>
+              <span className="text-lg font-semibold ml-4">{filteredData.length}</span>
+            </div>
+            <div className="flex justify-end items-center">
+              <span className="text-xl font-bold">Total:</span>
+              <span className="text-xl font-bold ml-4">฿{filteredData.length}</span>
+            </div>
+          </div>
+          <div className="flex flex-row justify-end pt-4">
             <button
               type="button"
-              className="btn btn-dash btn-error"
+              className="btn btn-outline btn-base-300 border-base-300 text-base-content/70"
               onClick={() => document.getElementById(dialogId).close()}
             >
               Cancel
             </button>
           </div>
         </div>
+        
+        
       </dialog>
     </div>
   );
