@@ -83,7 +83,7 @@ export default function Info({ customer }) {
                 <label className="label pb-1">address</label>
                 <textarea 
                   type="text" 
-                  className="textarea textarea-xl p-3" 
+                  className="textarea p-3" 
                   value={address} 
                   readOnly
                 />
