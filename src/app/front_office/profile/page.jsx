@@ -8,9 +8,8 @@ import Change_password from './change_password';
 function Page() {
 
   return (
-    <div className='flex flex-col p-4'>
-      <Navbar />
-        <div className="w-full p-4">
+    <div className='flex flex-col p-2'>
+        <div className="w-full p-2">
           <h1 className="text-3xl font-bold pl-90">Profile</h1>
             {/* Input: name , lastname , birthday , phone , email , address  */}
             <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-3xl border p-4 mx-auto">

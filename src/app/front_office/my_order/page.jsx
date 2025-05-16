@@ -77,11 +77,8 @@ function page() {
 
  return (
     <div className="flex flex-col w-full">
-      <div className="fixed w-full p-4 z-50">
-        <Navbar />
-      </div>
 
-      <div className="relative flex flex-col w-full p-6 mt-25">
+      <div className="relative flex flex-col w-full">
         {/* Header */}
         <div className="flex flex-row gap-2 items-center pb-6">
           <h1 className="text-3xl font-bold">Order</h1>

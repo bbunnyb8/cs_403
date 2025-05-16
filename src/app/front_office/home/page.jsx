@@ -109,8 +109,8 @@ const ProductCard = ({ product }) => {
 export default function Page() {
   return (
       <div className="flex flex-col min-h-screen">
-        <main className="flex-grow container mx-auto p-4">
-          <h1 className="text-3xl font-bold p-8">Order</h1>
+        <main className="flex-grow container mx-auto">
+          <h1 className="text-3xl font-bold pb-2">Order</h1>
           <label className="input">
             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g
@@ -126,7 +126,7 @@ export default function Page() {
             </svg>
             <input type="search" required placeholder="Search" />
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-2">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
