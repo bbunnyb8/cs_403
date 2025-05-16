@@ -26,27 +26,11 @@ function Page() {
                     />
                 </div>
                 <div className="flex flex-col">
-                  <label className="label pb-1">Last Name</label>
+                  <label className="label pb-1">Tel</label>
                   <input
                     type="text"
                     className="input"
-                    placeholder="Your Last Name"
-                    />
-                </div>
-                <div className="flex flex-col">
-                  <label className="label pb-1">Birthday</label>
-                  <input
-                    type="text"
-                    className="input"
-                    placeholder="Your Birthday"
-                    />
-                </div>
-                <div className="flex flex-col">
-                  <label className="label pb-1">Phone</label>
-                  <input
-                    type="text"
-                    className="input"
-                    placeholder="Your Phone"
+                    placeholder="Your Tel"
                     />
                 </div>
                 <div className="flex flex-col">
