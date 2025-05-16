@@ -13,7 +13,8 @@ function LayoutContent({ children }) {
    const subtotalForPayment = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   return (
-    <>
+    <div className='p-4'>
+      
       <Navbar />
       <main className="flex-grow container mx-auto p-4">
         {children}
@@ -24,7 +25,7 @@ function LayoutContent({ children }) {
         onClose={closePaymentModal}
         totalAmount={subtotalForPayment} // << ส่งราคารวมไปให้ PaymentModal
       />
-    </>
+    </div>
   );
 }
 
