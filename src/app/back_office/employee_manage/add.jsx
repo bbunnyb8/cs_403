@@ -121,7 +121,7 @@ export default function Modal() {
             </div>
           </form>
 
-          <div className="flex flex-row justify-center p-4 gap-2">
+          <div className="flex flex-row justify-end p-4 gap-2">
             <button type="button" className="btn btn-success" onClick={handleSubmit}>OK</button>
             <button type="button" className="btn btn-outline border-base-300 text-base-content/70" onClick={() => document.getElementById("modal_add").close()}>Cancel</button>
           </div>
