@@ -19,7 +19,7 @@ export async function POST(req) {
     console.log('✅ Connected to MySQL')
 
     const [rows] = await connection.execute(
-        'SELECT * FROM login WHERE user = ? AND pass = ?',
+        'SELECT * FROM users WHERE username = ? AND password = ?',
         [username, password]
     )
 
@@ -28,7 +28,8 @@ export async function POST(req) {
     await connection.end()
 
     if (rows.length > 0) {
-        return Response.json({ success: true })
+        // ส่ง user_id กลับไปด้วย
+        return Response.json({ success: true, user_id: rows[0].user_id })
     } else {
         return Response.json({ success: false }, { status: 401 })
     }

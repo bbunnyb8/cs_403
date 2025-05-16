@@ -11,17 +11,18 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product, quantity) => {
     setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
+      // Use product.product_id as the unique id
+      const id = product.product_id || product.id;
+      const existingItem = prevItems.find(item => item.id === id);
       if (existingItem) {
-        // ถ้ามีสินค้านี้ในตะกร้าแล้ว ให้อัปเดตจำนวน
         return prevItems.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity } // เพิ่มจำนวนตามที่สั่งใหม่
+          item.id === id
+            ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       } else {
-        // ถ้ายังไม่มีสินค้านี้ในตะกร้า ให้เพิ่มเข้าไปใหม่
-        return [...prevItems, { ...product, quantity: quantity }];
+        // Ensure the cart item has an 'id' property
+        return [...prevItems, { ...product, id, quantity }];
       }
     });
     console.log(`Added to cart: ${product.name}, Quantity: ${quantity}. Current cart:`, cartItems); // แสดง log เพื่อตรวจสอบ (cartItems อาจยังไม่อัปเดตทันทีใน log นี้เนื่องจาก setState เป็น async)
