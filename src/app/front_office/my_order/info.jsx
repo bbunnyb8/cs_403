@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import { RiEmojiStickerLine } from "react-icons/ri";
 
-export default function Info({ customer }) {
+export default function Info({ order ,customer }) {
+  const [amount, setAmount] = useState(order.total_amount || "");
+  const [total_price, setTotal_Price] = useState(order.total_price || "");
   const [stockData, setStockData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,7 +104,7 @@ export default function Info({ customer }) {
                   <tr key={idx} className="text-center">
                     <td className="w-10 px-1 sm:px-1">{startIndex + idx + 1}</td>
                     <td className="w-100 px-1 sm:px-1 text-left">{item.name}</td>
-                    <td className="w-20 px-1 sm:px-1">{item.price}</td>
+                    <td className="w-20 px-1 sm:px-1">{item.total_price}</td>
                     <td className="w-20 px-1 sm:px-1">{item.total_amount}</td>
                     <td className="w-20 px-1 sm:px-1">{item.total_price}</td>
                   </tr>
@@ -110,15 +112,13 @@ export default function Info({ customer }) {
               </tbody>
             </table>
           </div>
-          <div className="mt-6 pt-4 border-t">
-            <div className="flex justify-end items-center mb-2">
-              <span className="text-lg">Amount:</span>
-              <span className="text-lg font-semibold ml-4">{filteredData.length}</span>
-            </div>
-            <div className="flex justify-end items-center">
-              <span className="text-xl font-bold">Total:</span>
-              <span className="text-xl font-bold ml-4">฿{filteredData.length}</span>
-            </div>
+          <div className="flex justify-end items-center mb-2">
+            <span className="text-lg">Amount:</span>
+            <span className="text-lg font-semibold ml-4">{amount}</span>
+          </div>
+          <div className="flex justify-end items-center">
+            <span className="text-xl font-bold">Total:</span>
+            <span className="text-xl font-bold ml-4">฿{total_price}</span>
           </div>
           <div className="flex flex-row justify-end pt-4">
             <button
