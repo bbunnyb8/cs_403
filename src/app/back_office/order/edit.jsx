@@ -11,21 +11,35 @@ export default function Edit({ order }) {
   const [tel, setTel] = useState(order.tel || "");
   const [address, setAddress] = useState(order.address || "");
 
-  
+  const [stockData, setStockData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-useEffect(() => {
-  if (order.user_id) {
-    console.log(order.user_id)
-    fetch(`/api/user/${order.user_id}`)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        setCustomer_name(data.name || "")
-        setTel(data.tel || "")
-        setAddress(data.address || "")
-      })
-  }
-}, [order.user_id])
+    useEffect(() => {
+      fetch('/api/order') // <-- แก้ path ตาม API ที่คุณทำไว้
+        .then((res) => res.json())
+        .then((data) => {
+          setStockData(data);
+          setFilteredData(data); // แสดงทั้งหมดก่อนกรอง
+        })
+        .catch((err) => console.error('Error fetching stock data:', err));
+    }, []);
+
+
+// useEffect(() => {
+//   if (order.user_id) {
+//     console.log(order.user_id)
+//     fetch(`/api/user/${order.user_id}`)
+//       .then(res => res.json())
+//       .then(data => {
+//         console.log(data)
+//         setCustomer_name(data.name || "")
+//         setTel(data.tel || "")
+//         setAddress(data.address || "")
+//       })
+//   }
+// }, [order.user_id])
 
 
 
@@ -89,7 +103,7 @@ useEffect(() => {
                     {order.items && order.items.map((item, idx) => (
                       <tr key={idx} className="text-center">
                         <td className="px-1">{idx + 1}</td>
-                        <td className="px-1 text-left">{item.product_name}</td>
+                        <td className="px-1 text-left">{item.name}</td>
                         <td className="px-1">{item.price}</td>
                         <td className="px-1">{item.amount}</td>
                         <td className="px-1">{item.total_price}</td>
@@ -101,12 +115,14 @@ useEffect(() => {
 
             {/* Display Overall Amount and Total Price */}
             <hr className="my-2" />
-            <div className="flex justify-end items-center mt-2 mb-1 pr-2"> {/* ปรับ margin/padding */}
-                <div className="text-right">
-                    <p className="text-sm">Amount: <span className="font-semibold">{overallAmount}</span></p>
-                    <p className="text-base font-bold">Total: <span className="font-semibold">฿{overallTotalPrice}</span></p> {/* เพิ่ม B หรือสกุลเงินตามต้องการ */}
-                </div>
-            </div>
+            <div className="flex justify-end items-center mb-2">
+                <span className="text-lg">Amount:</span>
+                <span className="text-lg font-semibold ml-4">{amount}</span>
+              </div>
+              <div className="flex justify-end items-center">
+                <span className="text-xl font-bold">Total:</span>
+                <span className="text-xl font-bold ml-4">฿{total_price}</span>
+              </div>
             
             {/* Status (อาจจะย้ายไปส่วนอื่น หรือคงไว้ถ้ายังต้องการแก้ไข) */}
             {/* ถ้าไม่ต้องการแสดง status ในส่วนนี้ สามารถย้าย <fieldset> ที่เกี่ยวข้องกับ status ออกไปได้ */}
